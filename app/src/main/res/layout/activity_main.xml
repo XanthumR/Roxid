@@ -65,4 +65,10 @@
         android:clickable="true"
         android:textColor="@color/white" />
 
+    <Button
+        android:id="@+id/friendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
 </LinearLayout>
