@@ -9,6 +9,9 @@ activity = "1.9.3"
 constraintlayout = "2.2.0"
 uiGraphicsAndroid = "1.7.5"
 uiGraphicsDesktop = "1.7.0"
+android = "1.6.7"
+androidActivation = "1.6.7"
+androidMail = "1.6.7"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,6 +23,9 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
 ui-graphics-desktop = { group = "androidx.compose.ui", name = "ui-graphics-desktop", version.ref = "uiGraphicsDesktop" }
+android = { group = "com.sun.mail", name = "android", version.ref = "android" }
+android-activation = { group = "com.sun.mail", name = "android-activation", version.ref = "androidActivation" }
+android-mail = { group = "com.sun.mail", name = "android-mail", version.ref = "androidMail" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

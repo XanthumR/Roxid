@@ -8,16 +8,15 @@
     android:background="@color/black"
     >
 
-
-    <!-- Company Logo -->
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@mipmap/roxid_logo_foreground"
-        android:contentDescription="@string/app_name"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"/>
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/roxid_logo_foreground" />
+
     <TextView
         android:id="@+id/gradientText"
         android:layout_width="wrap_content"
@@ -26,38 +25,33 @@
         android:textSize="50sp"
         android:textColor="@color/white"
         />
-    <!-- Username Input -->
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/orange"
-        android:hint="Email"
-        android:inputType="text"
+        android:background="@drawable/button_gradient"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         android:padding="10dp" />
 
 
-    <!-- Password Input -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/orange"
+        android:background="@drawable/button_gradient"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="10dp" />
 
-    <!-- Login Button -->
 
-    <!-- Signup Text -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_gradient"
-        android:textColor="@android:color/white"
         android:text="Login"
         />
 
@@ -65,9 +59,10 @@
         android:id="@+id/signupTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Not yet registered? Sign Up Now"
-        android:textColor="@color/white"
         android:layout_marginTop="16dp"
-        />
+        android:focusable="true"
+        android:text="Not yet registered? Sign Up Now"
+        android:clickable="true"
+        android:textColor="@color/white" />
 
 </LinearLayout>

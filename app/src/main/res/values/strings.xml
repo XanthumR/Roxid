@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Roxid</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
 </resources>
