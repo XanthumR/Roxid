@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class confirmation_code extends AppCompatActivity {
     EditText codeText;
     Button confirmButton;
+    DatabaseManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,12 +25,20 @@ public class confirmation_code extends AppCompatActivity {
         codeText = findViewById(R.id.ConfirmationCode);
         confirmButton = findViewById(R.id.confirmButton);
         Intent intent = getIntent();
-        int code = intent.getIntExtra("Verification Code", 0);
+        Bundle bundle = intent.getExtras();
+        dbManager = new DatabaseManager(this);
+        try {
+            dbManager.open();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (codeText.getText().toString().equalsIgnoreCase(String.valueOf(code))){
+                assert bundle != null;
+                if (codeText.getText().toString().equalsIgnoreCase(bundle.getString("Verification Code"))){
                     Toast.makeText(view.getContext(),"you know the code",Toast.LENGTH_SHORT).show();
                 }
                 else {
