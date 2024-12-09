@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.imageview.ShapeableImageView;
+
 import java.util.Random;
 
 
@@ -35,8 +37,6 @@ public class sign_up_activity extends AppCompatActivity {
         passwordAgainEditText = findViewById(R.id.passwordAgainEditText);
         signUpButton = findViewById(R.id.signUpButton);
         backButton = findViewById(R.id.backButton);
-
-
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

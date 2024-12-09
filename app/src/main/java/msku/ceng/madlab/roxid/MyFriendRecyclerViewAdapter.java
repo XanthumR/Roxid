@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.google.android.material.imageview.ShapeableImageView;
+
 import java.util.List;
 
 public class MyFriendRecyclerViewAdapter extends RecyclerView.Adapter<MyFriendRecyclerViewAdapter.ViewHolder> {
@@ -30,8 +32,8 @@ public class MyFriendRecyclerViewAdapter extends RecyclerView.Adapter<MyFriendRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).profileImage);
         holder.mContentView.setText(mValues.get(position).Username);
+        holder.mIdView.setImageResource(R.mipmap.ic_launcher);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class MyFriendRecyclerViewAdapter extends RecyclerView.Adapter<MyFriendRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
+        public final ShapeableImageView mIdView;
         public final TextView mContentView;
         public final View mView;
         public Friend mItem;
@@ -49,7 +51,7 @@ public class MyFriendRecyclerViewAdapter extends RecyclerView.Adapter<MyFriendRe
         public ViewHolder(View view) {
             super(view);
             mView=view;
-            mIdView = view.findViewById(R.id.item_number);
+            mIdView = view.findViewById(R.id.profile_image);
             mContentView = view.findViewById(R.id.content);
         }
 
