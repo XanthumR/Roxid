@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -60,10 +61,9 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
         String isimler = list.get(position);
 
         holder.clubText.setText(isimler);
+        holder.clubButton.setText("Button" + isimler);
 
-        System.out.println(holder);
-
-        holder.clubButton.setOnClickListener(new View.OnClickListener() {
+        holder.cardId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context,"Seçilen isim: " + isimler, Toast.LENGTH_SHORT).show();
@@ -78,12 +78,14 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
 
     public class ClubsViewObjects extends RecyclerView.ViewHolder{
 
+        public CardView cardId;
         public TextView clubText;
         public Button clubButton;
 
         public ClubsViewObjects(@NonNull View view) {
             super(view);
 
+            cardId = view.findViewById(R.id.cardId);
             clubText = view.findViewById(R.id.denemeText);
             clubButton = view.findViewById(R.id.denemeButton);
         }

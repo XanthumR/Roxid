@@ -20,19 +20,13 @@ public class ClubsMain extends AppCompatActivity {
     private ArrayList<String> listName;
     private ClubsAdapter adapter;
 
-    /*
-    private RecyclerView recyclerView;
-    private ClubsAdapter adapter;
-    private List<String> dataList;
-    */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_clubs_main);
 
-        rowId = findViewById(R.id.recyclerView);
+        rowId = findViewById(R.id.rowId);
         rowId.setHasFixedSize(true);
         rowId.setLayoutManager(new GridLayoutManager(this,3));
 
@@ -43,6 +37,7 @@ public class ClubsMain extends AppCompatActivity {
         listName.add("MSKÜ");
         listName.add("Rıdvan");
         listName.add("Zeitnot");
+        listName.add("Allah");
 
         System.out.println(listName);
 
@@ -51,33 +46,5 @@ public class ClubsMain extends AppCompatActivity {
         rowId.setAdapter(adapter);
 
 
-        /*
-        recyclerView = findViewById(R.id.recyclerView);
-
-        //3 sütunlu düzen
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
-
-        dataList = fetchDataFromDatabase();
-
-        System.out.println(dataList);
-
-        // Adapteri ayarla
-        adapter = new ClubsAdapter(this, dataList);
-        recyclerView.setAdapter(adapter);
-
-         */
     }
-
-    /*
-    // Verileri taklit eden bir fonksiyon
-    private List<String> fetchDataFromDatabase() {
-        List<String> dummyData = new ArrayList<>();
-        for (int i = 1; i <= 50; i++) {
-            dummyData.add("Button " + i);
-        }
-        return dummyData;
-    }
-
-     */
 }
