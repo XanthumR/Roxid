@@ -53,20 +53,18 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
     }
 
 
-    //TODO: BURAYA GİRMİYOR DÜZELMESİ GEREKLİ DÜZGÜN BAĞLANMAMIŞ
     @Override
     public void onBindViewHolder(@NonNull ClubsViewObjects holder, int position) {
 
         System.out.println("DENEMEEEE");
         String isimler = list.get(position);
 
-        holder.clubText.setText(isimler);
         holder.clubButton.setText("Button" + isimler);
 
-        holder.cardId.setOnClickListener(new View.OnClickListener() {
+        holder.clubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"Seçilen isim: " + isimler, Toast.LENGTH_SHORT).show();
+                System.out.println("BUTONA TIKLANDI");
             }
         });
     }
@@ -79,14 +77,12 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
     public class ClubsViewObjects extends RecyclerView.ViewHolder{
 
         public CardView cardId;
-        public TextView clubText;
         public Button clubButton;
 
         public ClubsViewObjects(@NonNull View view) {
             super(view);
 
             cardId = view.findViewById(R.id.cardId);
-            clubText = view.findViewById(R.id.denemeText);
             clubButton = view.findViewById(R.id.denemeButton);
         }
     }

@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
     android:gravity="center"
     android:orientation="horizontal"
@@ -8,26 +9,23 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/cardId">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/black"
+        android:id="@+id/cardId"
+        >
 
         <Button
             android:id="@+id/denemeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/rounded_button"
             android:padding="16dp"
+            android:shadowRadius="40"
             android:text="Club Name"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            />
 
-        <TextView
-            android:id="@+id/denemeText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="DENEME TEXT"
-            android:textColor="@color/black" />
     </androidx.cardview.widget.CardView>
 
 

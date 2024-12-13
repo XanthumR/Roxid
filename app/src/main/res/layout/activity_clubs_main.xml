@@ -14,9 +14,8 @@
         android:text="Your Clubs"
         android:textColor="@color/white"
         android:gravity="center"
-        android:textSize="40sp"/>
-
-
+        android:textSize="40sp"
+        android:paddingTop="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rowId"
@@ -27,40 +26,51 @@
         android:scrollbars="horizontal" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnNewClub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:text="New Club" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:divider="@android:color/transparent"
+        android:showDividers="middle"
+        android:dividerPadding="8dp"
+        android:paddingBottom="20dp">
 
         <Button
             android:id="@+id/btnLogOut"
-            android:layout_width="wrap_content"
+            android:background="@drawable/button_gradient"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
+            android:layout_margin="8dp"
             android:text="Log Out" />
 
         <Button
-            android:id="@+id/btnFriends"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-
+            android:id="@+id/btnNewClub"
+            android:background="@drawable/button_gradient"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:text="New Club" />
+
+
+
+        <Button
+            android:id="@+id/btnFriends"
+            android:background="@drawable/button_gradient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
             android:text="Friends" />
 
         <Button
             android:id="@+id/btnSettings"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-
+            android:background="@drawable/button_gradient"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
             android:text="Settings" />
     </LinearLayout>
 
