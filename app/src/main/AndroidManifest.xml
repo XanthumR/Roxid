@@ -19,6 +19,9 @@
             android:name=".friendList"
             android:exported="false" />
         <activity
+            android:name=".ClubsMain"
+            android:exported="false" />
+        <activity
             android:name=".confirmation_code"
             android:exported="false" />
         <activity

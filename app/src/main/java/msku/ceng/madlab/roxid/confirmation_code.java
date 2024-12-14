@@ -16,7 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 public class confirmation_code extends AppCompatActivity {
     EditText codeText;
     Button confirmButton;
+    Button backButton;
     DatabaseManager dbManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,8 @@ public class confirmation_code extends AppCompatActivity {
         setContentView(R.layout.activity_confirmation_code);
         codeText = findViewById(R.id.ConfirmationCode);
         confirmButton = findViewById(R.id.confirmButton);
+        backButton = findViewById(R.id.backToMain);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         dbManager = new DatabaseManager(this);
@@ -40,10 +45,20 @@ public class confirmation_code extends AppCompatActivity {
                 assert bundle != null;
                 if (codeText.getText().toString().equalsIgnoreCase(bundle.getString("Verification Code"))){
                     Toast.makeText(view.getContext(),"you know the code",Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(confirmation_code.this,ClubsMain.class);
+                    startActivity(intent1);
                 }
                 else {
                     Toast.makeText(view.getContext(),"wrong code",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent backIntent = new Intent(confirmation_code.this, MainActivity.class);
+                startActivity(backIntent);
             }
         });
 

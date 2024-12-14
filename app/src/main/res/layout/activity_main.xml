@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center"
     android:background="@color/black"
-    >
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/logoImageView"
@@ -22,9 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textSize="50sp"
         android:textColor="@color/white"
-        />
+        android:textSize="50sp" />
+
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
@@ -52,17 +52,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_gradient"
-        android:text="Login"
-        />
+        android:text="Login" />
 
     <TextView
         android:id="@+id/signupTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:clickable="true"
         android:focusable="true"
         android:text="Not yet registered? Sign Up Now"
-        android:clickable="true"
         android:textColor="@color/white" />
 
     <Button

@@ -54,13 +54,13 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/button_gradient"
         android:text="ConfIrm"
-        app:layout_constraintEnd_toStartOf="@+id/back"
+        app:layout_constraintEnd_toStartOf="@+id/backToMain"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ConfirmationCode" />
 
     <Button
-        android:id="@+id/back"
+        android:id="@+id/backToMain"
         android:layout_width="139dp"
         android:layout_height="49dp"
         android:layout_marginTop="28dp"
