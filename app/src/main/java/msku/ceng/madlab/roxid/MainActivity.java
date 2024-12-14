@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
     TextView signUpText;
     Button loginButton;
     Button buttonFriend;
+    EditText email;
+    EditText password;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +43,12 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                email = findViewById(R.id.emailEditText);
+                password = findViewById(R.id.passwordEditText);
 
+                Intent intent = new Intent(MainActivity.this, ClubsMain.class);
+                startActivity(intent);
+                // login check lazım
             }
         });
         buttonFriend.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
     }
 
