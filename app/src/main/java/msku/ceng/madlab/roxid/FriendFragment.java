@@ -57,6 +57,18 @@ public class FriendFragment extends Fragment {
         friends.add(new Friend("profileImageLocation","FriendUsername"));
         friends.add(new Friend("profileImageLocation1","FriendUsername1"));
         friends.add(new Friend("profileImageLocation2","FriendUsername2"));
+        friends.add(new Friend("profileImageLocation","FriendUsername"));
+        friends.add(new Friend("profileImageLocation1","FriendUsername1"));
+        friends.add(new Friend("profileImageLocation2","FriendUsername2"));
+        friends.add(new Friend("profileImageLocation","FriendUsername"));
+        friends.add(new Friend("profileImageLocation1","FriendUsername1"));
+        friends.add(new Friend("profileImageLocation2","FriendUsername2"));
+        friends.add(new Friend("profileImageLocation","FriendUsername"));
+        friends.add(new Friend("profileImageLocation1","FriendUsername1"));
+        friends.add(new Friend("profileImageLocation2","FriendUsername2"));
+        friends.add(new Friend("profileImageLocation","FriendUsername"));
+        friends.add(new Friend("profileImageLocation1","FriendUsername1"));
+        friends.add(new Friend("profileImageLocation2","FriendUsername2"));
     }
 
     @Override
