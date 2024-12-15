@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "690245666278",
+    "project_id": "roxid-ea4e0",
+    "storage_bucket": "roxid-ea4e0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690245666278:android:c0e6e1322db3db72880227",
+        "android_client_info": {
+          "package_name": "msku.ceng.madlab.roxid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyHj9Yj6yDug3YPvNMU9y3dvdWQ6bSisM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

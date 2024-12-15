@@ -1,6 +1,7 @@
 
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -58,5 +59,9 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("io.agora.rtc:voice-sdk:4.5.0")
     implementation("io.agora.rtc:chat-sdk:1.3.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
 
 }
