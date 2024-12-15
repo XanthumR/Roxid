@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         buttonFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, friendList.class);
+                Intent intent = new Intent(MainActivity.this, VoiceChat.class);
                 startActivity(intent);
             }
         });
