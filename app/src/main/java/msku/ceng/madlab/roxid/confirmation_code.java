@@ -9,15 +9,16 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import msku.ceng.madlab.roxid.database.Users;
 
 public class confirmation_code extends AppCompatActivity {
     EditText codeText;
     Button confirmButton;
     Button backButton;
-    DatabaseManager dbManager;
+
 
 
     @Override
@@ -31,13 +32,9 @@ public class confirmation_code extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        dbManager = new DatabaseManager(this);
-        try {
-            dbManager.open();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,8 +42,29 @@ public class confirmation_code extends AppCompatActivity {
                 assert bundle != null;
                 if (codeText.getText().toString().equalsIgnoreCase(bundle.getString("Verification Code"))){
                     Toast.makeText(view.getContext(),"you know the code",Toast.LENGTH_SHORT).show();
+
+                    final String DEFAULT_USER_PICTURE = "mipmap-xxhdpi/kali_foreground.webp";
+
+                    // email, username , password, picture
+                    Users newUser = new Users(bundle.getString("email"),
+                            bundle.getString("username"),
+                            bundle.getString("password"),
+                            DEFAULT_USER_PICTURE);
+
+
+                    //TODO: ID kısmını düzelt Integer yap
+                    db.collection("users")
+                            .add(newUser)
+                            .addOnSuccessListener(documentReference -> {
+                                System.out.println("User added with ID: " + documentReference.getId());
+                            })
+                            .addOnFailureListener(e -> {
+                                System.out.println("Error adding user: " + e.getMessage());
+                            });
+
                     Intent intent1 = new Intent(confirmation_code.this,ClubsMain.class);
                     startActivity(intent1);
+
                 }
                 else {
                     Toast.makeText(view.getContext(),"wrong code",Toast.LENGTH_SHORT).show();

@@ -5,7 +5,7 @@ public class Users {
     private int userId;
     private String username;
     private String email;
-    private String userPicture;
+    private String userPicture ;
     private String password;
 
     // Not necessary

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class ClubsMain extends AppCompatActivity {
     Button newClub;
     Button settings;
     Button friends;
+    TextView clubs;
     private RecyclerView rowId;
     private ArrayList<String> listName;
     private ClubsAdapter adapter;
@@ -43,6 +45,11 @@ public class ClubsMain extends AppCompatActivity {
         rowId.setHasFixedSize(true);
         rowId.setLayoutManager(new GridLayoutManager(this,3));
 
+        clubs = findViewById(R.id.textClubs);
+        TextShader textShader = new TextShader();
+        textShader.shaderStart(clubs,"#f105dd","#fb764f");
+
+
         btnBack = findViewById(R.id.btnLogOut);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +61,8 @@ public class ClubsMain extends AppCompatActivity {
         });
         //1365
 
-        btnBack = findViewById(R.id.btnNewClub);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        newClub = findViewById(R.id.btnNewClub);
+        newClub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Intent intent = new Intent(ClubsMain.this,Newclub.class);
@@ -67,8 +74,8 @@ public class ClubsMain extends AppCompatActivity {
         friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(ClubsMain.this,Friends.class);
-                //startActivity(intent);
+                Intent intent = new Intent(ClubsMain.this,friendList.class);
+                startActivity(intent);
             }
         });
 
