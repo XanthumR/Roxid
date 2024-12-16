@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".InTheClubActivity"
+    android:background="@color/black"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message Channels"
+        android:textColor="@color/white"
+        android:layout_weight="1"
+        android:textSize="30sp"
+        />
+
+    <ImageButton
+        android:id="@+id/messageChannelAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Message Channel Add"
+        android:background="@drawable/button_gradient"
+        android:src="@drawable/channel_add_foreground" />
+
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voice Channels"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            />
+
+        <ImageButton
+            android:id="@+id/voiceChannelAddButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Message Channel Add"
+            android:background="@drawable/button_gradient"
+            android:src="@drawable/channel_add_foreground" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

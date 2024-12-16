@@ -66,7 +66,6 @@
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:background="@drawable/button_gradient_transition"
             android:text="Back"
             app:layout_constraintEnd_toEndOf="parent"
