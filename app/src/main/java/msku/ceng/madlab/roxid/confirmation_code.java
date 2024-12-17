@@ -17,7 +17,6 @@ public class confirmation_code extends AppCompatActivity {
     EditText codeText;
     Button confirmButton;
     Button backButton;
-    DatabaseManager dbManager;
 
 
     @Override
@@ -31,13 +30,7 @@ public class confirmation_code extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        dbManager = new DatabaseManager(this);
-        try {
-            dbManager.open();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
