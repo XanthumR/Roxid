@@ -1,4 +1,4 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.clubs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,21 +8,17 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import msku.ceng.madlab.roxid.MainActivity;
+import msku.ceng.madlab.roxid.R;
+import msku.ceng.madlab.roxid.TextShader;
+import msku.ceng.madlab.roxid.friends.FriendList;
 
 public class ClubsMain extends AppCompatActivity {
 
@@ -74,7 +70,7 @@ public class ClubsMain extends AppCompatActivity {
         friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ClubsMain.this,friendList.class);
+                Intent intent = new Intent(ClubsMain.this, FriendList.class);
                 startActivity(intent);
             }
         });

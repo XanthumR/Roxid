@@ -12,14 +12,16 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 import java.util.Random;
 
+import msku.ceng.madlab.roxid.mail.MailSender;
+import msku.ceng.madlab.roxid.mail.ConfirmationCode;
 
-public class sign_up_activity extends AppCompatActivity {
+
+public class SignUpActivity extends AppCompatActivity {
     EditText usernameEditText;
     EditText emailEditText;
     EditText passwordEditText;
@@ -58,7 +60,7 @@ public class sign_up_activity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(sign_up_activity.this, MainActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +88,7 @@ public class sign_up_activity extends AppCompatActivity {
                             bundle.putString("email",emailEditText.getText().toString());
                             bundle.putString("password",passwordEditText.getText().toString());
                             bundle.putString("Verification Code", String.valueOf(code));
-                            Intent intent = new Intent(sign_up_activity.this, confirmation_code.class);
+                            Intent intent = new Intent(SignUpActivity.this, ConfirmationCode.class);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }

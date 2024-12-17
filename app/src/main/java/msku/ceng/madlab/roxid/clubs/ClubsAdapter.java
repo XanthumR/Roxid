@@ -1,20 +1,19 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.clubs;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import msku.ceng.madlab.roxid.R;
 
 public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObjects> {
 

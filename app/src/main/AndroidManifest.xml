@@ -19,16 +19,16 @@
             android:name=".UserSettings"
             android:exported="false" />
         <activity
-            android:name=".friendList"
+            android:name=".friends.FriendList"
             android:exported="false" />
         <activity
-            android:name=".ClubsMain"
+            android:name=".clubs.ClubsMain"
             android:exported="false" />
         <activity
-            android:name=".confirmation_code"
+            android:name=".mail.ConfirmationCode"
             android:exported="false" />
         <activity
-            android:name=".sign_up_activity"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

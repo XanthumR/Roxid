@@ -38,7 +38,7 @@ public class UserSettings extends AppCompatActivity {
         });
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        
+
 
     }
 }

@@ -1,4 +1,4 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.mail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import msku.ceng.madlab.roxid.clubs.ClubsMain;
+import msku.ceng.madlab.roxid.MainActivity;
+import msku.ceng.madlab.roxid.R;
 import msku.ceng.madlab.roxid.database.Users;
 
-public class confirmation_code extends AppCompatActivity {
+public class ConfirmationCode extends AppCompatActivity {
     EditText codeText;
     Button confirmButton;
     Button backButton;
@@ -62,7 +65,7 @@ public class confirmation_code extends AppCompatActivity {
                                 System.out.println("Error adding user: " + e.getMessage());
                             });
 
-                    Intent intent1 = new Intent(confirmation_code.this,ClubsMain.class);
+                    Intent intent1 = new Intent(ConfirmationCode.this, ClubsMain.class);
                     startActivity(intent1);
 
                 }
@@ -75,7 +78,7 @@ public class confirmation_code extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent backIntent = new Intent(confirmation_code.this, MainActivity.class);
+                Intent backIntent = new Intent(ConfirmationCode.this, MainActivity.class);
                 startActivity(backIntent);
             }
         });
