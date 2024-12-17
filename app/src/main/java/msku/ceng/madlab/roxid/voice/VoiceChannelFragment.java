@@ -1,4 +1,4 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.voice;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import msku.ceng.madlab.roxid.R;
 
 
 public class VoiceChannelFragment extends Fragment {

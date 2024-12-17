@@ -1,4 +1,4 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.friends;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
+
+import msku.ceng.madlab.roxid.R;
 
 public class MyFriendRecyclerViewAdapter extends RecyclerView.Adapter<MyFriendRecyclerViewAdapter.ViewHolder> {
 

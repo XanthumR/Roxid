@@ -1,22 +1,15 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.friends;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import msku.ceng.madlab.roxid.R;
 
 public class friendList extends AppCompatActivity {
     Button addFriend;

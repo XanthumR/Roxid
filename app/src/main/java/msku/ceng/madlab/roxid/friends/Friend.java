@@ -1,6 +1,4 @@
-package msku.ceng.madlab.roxid;
-
-import android.media.Image;
+package msku.ceng.madlab.roxid.friends;
 
 public class Friend {
     String Username;

@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import msku.ceng.madlab.roxid.clubs.ClubsMain;
+import msku.ceng.madlab.roxid.voice.VoiceChat;
+
 
 public class MainActivity extends AppCompatActivity {
     TextView logoText;

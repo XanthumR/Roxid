@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/fragment_container"
         android:layout_weight="1"
-        android:name="msku.ceng.madlab.roxid.FriendFragment"
+        android:name="msku.ceng.madlab.roxid.friends.FriendFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="25dp"

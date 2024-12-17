@@ -1,4 +1,4 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.mail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +9,12 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class confirmation_code extends AppCompatActivity {
+import msku.ceng.madlab.roxid.clubs.ClubsMain;
+import msku.ceng.madlab.roxid.MainActivity;
+import msku.ceng.madlab.roxid.R;
+
+public class ConfirmationCode extends AppCompatActivity {
     EditText codeText;
     Button confirmButton;
     Button backButton;
@@ -38,7 +39,7 @@ public class confirmation_code extends AppCompatActivity {
                 assert bundle != null;
                 if (codeText.getText().toString().equalsIgnoreCase(bundle.getString("Verification Code"))){
                     Toast.makeText(view.getContext(),"you know the code",Toast.LENGTH_SHORT).show();
-                    Intent intent1 = new Intent(confirmation_code.this,ClubsMain.class);
+                    Intent intent1 = new Intent(ConfirmationCode.this, ClubsMain.class);
                     startActivity(intent1);
                 }
                 else {
@@ -50,7 +51,7 @@ public class confirmation_code extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent backIntent = new Intent(confirmation_code.this, MainActivity.class);
+                Intent backIntent = new Intent(ConfirmationCode.this, MainActivity.class);
                 startActivity(backIntent);
             }
         });
