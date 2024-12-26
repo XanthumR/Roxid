@@ -26,7 +26,7 @@ public class VoiceChat extends AppCompatActivity {
     // Fill in the channel name
     private String channelName = "channel";
     // Fill in the temporary Token generated in the Agora console
-    private String token = "007eJxSYGAyO5K76e13P8bjUZzm86ZN8M/yVgyrVpz21O6l4eTwbZIKDEaWaSamhklpRkamqSaGxsYWBqlJaUkGqeZm5olGaYkpO/ly0xsCGRl6pRtYGRkYGVgYGBlAfCYwyQwmWcAkO0NyRmJeXmoOAwMgAAD//0ITIRM=";
+    private String token = "007eJxSYEg4eYpP/5JxuoOwZUfiWpmzh+dMLGM+qcfsuSZ324Ot794pMBhZppmYGialGRmZppoYGhtbGKQmpSUZpJqbmScapSWmzFSMT28IZGR4YmDMwsjAyMDCwMgA4jOBSWYwyQIm2RmSMxLz8lJzGBgAAQAA///AXSKT";
 
     private RtcEngine mRtcEngine;
 
