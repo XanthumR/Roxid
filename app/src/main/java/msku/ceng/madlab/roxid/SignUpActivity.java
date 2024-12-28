@@ -49,6 +49,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                     checkAlreadyRegister(emailEditText.getText().toString(),view);
 
+
+
                 }
                 else {
                     Toast.makeText(view.getContext(),"Passwords don't match",Toast.LENGTH_SHORT).show();
@@ -60,6 +62,8 @@ public class SignUpActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -88,6 +92,13 @@ public class SignUpActivity extends AppCompatActivity {
                             bundle.putString("email",emailEditText.getText().toString());
                             bundle.putString("password",passwordEditText.getText().toString());
                             bundle.putString("Verification Code", String.valueOf(code));
+
+                            String username = task.getResult().getDocuments().get(0).getString("username");
+                            String userId = task.getResult().getDocuments().get(0).getId();
+
+                            SessionManager sessionManager = new SessionManager(SignUpActivity.this);
+                            sessionManager.createSession(userId,username);
+
                             Intent intent = new Intent(SignUpActivity.this, ConfirmationCode.class);
                             intent.putExtras(bundle);
                             startActivity(intent);

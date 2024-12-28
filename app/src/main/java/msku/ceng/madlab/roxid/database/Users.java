@@ -19,6 +19,7 @@ public class Users {
         this.userPicture = userPicture;
     }
 
+    /*
     public int getUserId() {
         return userId;
     }
@@ -70,4 +71,6 @@ public class Users {
     public void setUserPicture(String userPicture) {
         this.userPicture = userPicture;
     }
+
+     */
 }

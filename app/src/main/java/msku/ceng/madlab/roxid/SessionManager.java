@@ -31,6 +31,15 @@ public class SessionManager {
         return sharedPreferences.getString(KEY_USERNAME, null);
     }
 
+    public String getKeyUserId() {
+        return sharedPreferences.getString(KEY_USER_ID,null);
+    }
+
+    public void updateSessionUsername(String username){
+        editor.putString(KEY_USERNAME, username);
+        editor.apply();
+    }
+
     // Oturum kontrolü
     public boolean isLoggedIn() {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);

@@ -83,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         if (!task.getResult().isEmpty()){
+                            String username = task.getResult().getDocuments().get(0).getString("username");
+                            String userId = task.getResult().getDocuments().get(0).getId();
+
+                            SessionManager sessionManager = new SessionManager(MainActivity.this);
+                            sessionManager.createSession(userId,username);
+
+                            //System.out.println("Bunlar ID ve Username " + userId + " " + username);
+
+
                             Intent intent = new Intent(MainActivity.this, ClubsMain.class);
                             startActivity(intent);
                         }else {

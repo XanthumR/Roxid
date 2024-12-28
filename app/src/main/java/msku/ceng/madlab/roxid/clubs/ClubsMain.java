@@ -17,12 +17,14 @@ import java.util.ArrayList;
 
 import msku.ceng.madlab.roxid.MainActivity;
 import msku.ceng.madlab.roxid.R;
+import msku.ceng.madlab.roxid.SessionManager;
 import msku.ceng.madlab.roxid.TextShader;
+import msku.ceng.madlab.roxid.UserSettings;
 import msku.ceng.madlab.roxid.friends.FriendList;
 
 public class ClubsMain extends AppCompatActivity {
 
-    Button btnBack;
+    Button btnLogout;
     Button newClub;
     Button settings;
     Button friends;
@@ -46,11 +48,16 @@ public class ClubsMain extends AppCompatActivity {
         textShader.shaderStart(clubs,"#f105dd","#fb764f");
 
 
-        btnBack = findViewById(R.id.btnLogOut);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnLogout = findViewById(R.id.btnLogOut);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SessionManager sessionManager = new SessionManager(ClubsMain.this);
+                sessionManager.logout();
+
                 Intent intent = new Intent(ClubsMain.this, MainActivity.class);
+                // Bu kullanıcının çıkış yapmadan önce bütün aktivitilerini sıfırlamak anlamında kullanılır
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 //TODO: Session kapatma yapılacak
             }
@@ -79,8 +86,8 @@ public class ClubsMain extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(ClubsMain.this,Settings.class);
-                //startActivity(intent);
+                Intent intent = new Intent(ClubsMain.this, UserSettings.class);
+                startActivity(intent);
             }
         });
 
@@ -114,6 +121,26 @@ public class ClubsMain extends AppCompatActivity {
         listName.add(" 1234567890abcçdefghıijklmnoöprsştuüvyz");
         listName.add(" 1234567890abcçdefghıijklmnoöprsştuüvyz");
         listName.add(" 1234567890abcçdefghıijklmnoöprsştuüvyz");
+
+        /*
+
+        SESSION INFOS CAN BE REACHABLE FROM EVERYWHERE
+
+        // Başka bir sınıfta (örneğin, ClubsMain.java)
+        SessionManager sessionManager = new SessionManager(this);
+
+        // Kullanıcı bilgilerini al
+        String username = sessionManager.getUsername();
+
+        // Bilgileri kullan
+        if (username != null) {
+            Toast.makeText(this, "Welcome, " + username, Toast.LENGTH_SHORT).show();
+            System.out.println("Welcome, " + username);
+        } else {
+            Toast.makeText(this, "No user is logged in.", Toast.LENGTH_SHORT).show();
+            System.out.println("No user is logged in.");
+        }
+        */
 
         //TODO: This is a Database test
         FirebaseFirestore db = FirebaseFirestore.getInstance();
