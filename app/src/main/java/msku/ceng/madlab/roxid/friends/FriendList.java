@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import msku.ceng.madlab.roxid.R;
 
-public class friendList extends AppCompatActivity {
+public class FriendList extends AppCompatActivity {
     Button addFriend;
     Button friendRequests;
     Button back;

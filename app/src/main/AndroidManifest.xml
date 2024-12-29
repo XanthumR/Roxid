@@ -29,7 +29,7 @@
             android:name=".voice.VoiceChat"
             android:exported="false" />
         <activity
-            android:name=".friends.friendList"
+            android:name=".friends.FriendList"
             android:exported="false" />
         <activity
             android:name=".clubs.ClubsMain"
