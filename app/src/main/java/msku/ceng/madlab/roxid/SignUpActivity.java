@@ -18,7 +18,7 @@ import msku.ceng.madlab.roxid.mail.MailSender;
 import msku.ceng.madlab.roxid.mail.ConfirmationCode;
 
 
-public class sign_up_activity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     EditText usernameEditText;
     EditText emailEditText;
     EditText passwordEditText;
@@ -53,7 +53,7 @@ public class sign_up_activity extends AppCompatActivity {
                     bundle.putString("email",emailEditText.getText().toString());
                     bundle.putString("password",passwordEditText.getText().toString());
                     bundle.putString("Verification Code", String.valueOf(code));
-                    Intent intent = new Intent(sign_up_activity.this, ConfirmationCode.class);
+                    Intent intent = new Intent(SignUpActivity.this, ConfirmationCode.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
