@@ -55,7 +55,8 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
     @Override
     public void onBindViewHolder(@NonNull ClubsViewObjects holder, int position) {
 
-        System.out.println("DENEMEEEE");
+        System.out.println("Clublar başarıyla oluşturuldu");
+
         String isimler = list.get(position);
 
         holder.clubButton.setText("Button" + isimler);
