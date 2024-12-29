@@ -5,10 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkBlueish"
     android:orientation="vertical"
-    tools:context=".InTheClubActivity"
-    android:background="@color/black"
-    >
+    tools:context=".InTheClubActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -74,9 +73,9 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/button_gradient"
-        android:visibility="gone"
         android:text="LEAVE VOICE CHANNEL"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
