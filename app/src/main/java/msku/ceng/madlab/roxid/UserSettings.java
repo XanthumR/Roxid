@@ -1,14 +1,22 @@
 package msku.ceng.madlab.roxid;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -21,12 +29,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import msku.ceng.madlab.roxid.clubs.ClubsMain;
-import msku.ceng.madlab.roxid.database.UserFunctions;
 
 public class UserSettings extends AppCompatActivity {
 
-
     Button updatePicture;
+    ImageView userPicture;
+
     Button save;
     Button back;
 
@@ -35,7 +43,6 @@ public class UserSettings extends AppCompatActivity {
     EditText username;
     EditText firstName;
     EditText lastName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,18 @@ public class UserSettings extends AppCompatActivity {
         userId = findViewById(R.id.txtUserID);
         userId.setText(currentUserId);
 
-        //TODO: EDITTEXT BOŞ İKEN SAVE YAPARSAK DB'DEKİ DEĞERLERİ SIFIRLIYOR
+
+
+        updatePicture = findViewById(R.id.btnEditUserPicture);
+        userPicture = findViewById(R.id.imageUserPicture);
+
+
+        /*
+        registerResult();
+        updatePicture.setOnClickListener(view -> pickImage());
+         */
+
+        // TODO: EDITTEXT BOŞ İKEN SAVE YAPARSAK DB'DEKİ DEĞERLERİ SIFIRLIYOR
         save = findViewById(R.id.btnSaveSettings);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +85,19 @@ public class UserSettings extends AppCompatActivity {
                 String newUsername = username.getText().toString();
                 String newFirstName = firstName.getText().toString();
                 String newLastName = lastName.getText().toString();
-                String currentUsername = sessionManager.getUsername();
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                if (!newUsername.isEmpty()) {
+                    changeUsername(currentUserId, newUsername);
+                }
+                if (!newFirstName.isEmpty()) {
+                    changeFirstName(currentUserId, newFirstName);
+                }
+                if (!newLastName.isEmpty()) {
+                    changeLastName(currentUserId, newLastName);
+                } else if (newUsername.isEmpty() && newFirstName.isEmpty() && newLastName.isEmpty()) {
+                    Toast.makeText(UserSettings.this,"You must type a value to save", Toast.LENGTH_SHORT).show();
+                }
 
                 /* BURADAKİ 2 KOD ARASINDA FONKSİYONEL HİÇBİR FARK YOK
                 db.collection("users")
@@ -96,51 +124,54 @@ public class UserSettings extends AppCompatActivity {
                                 });
                  */
 
-                // Kullanıcı bilgilerini güncelle
-                db.collection("users")
-                        .whereEqualTo("username", currentUsername)
-                        .get()
-                        .addOnSuccessListener(queryDocumentSnapshots -> {
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                // Kullanıcıyı bulduk, bilgileri güncelle
-                                db.collection("users")
-                                        .document(currentUserId)
-                                        .update(
-                                                "username", newUsername,
-                                                "firstName", newFirstName,
-                                                "lastName", newLastName
-                                        )
-                                        .addOnSuccessListener(aVoid -> {
-                                            sessionManager.updateSessionUsername(newUsername);
-                                            Toast.makeText(UserSettings.this, "Updates successful!", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(UserSettings.this, ClubsMain.class);
-                                            startActivity(intent);
-                                            finish();
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            Toast.makeText(UserSettings.this, "Updates unsuccessful!", Toast.LENGTH_SHORT).show();
-                                        });
-                            } else {
-                                Toast.makeText(UserSettings.this, "There is no user!", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(UserSettings.this, "Database error!", Toast.LENGTH_SHORT).show();
-                        });
+                back = findViewById(R.id.btnDontSave);
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(UserSettings.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
-
-
-
-        back = findViewById(R.id.btnDontSave);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(UserSettings.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
     }
+
+
+
+
+    //! .set() Overwrite diğer verilere yapar ona SetOptions.merge() yapmak gerekir
+    //! ama .update() overwrite yapmaz
+
+    public void changeUsername(String currentUserID, String newUsername) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users")
+                .document(currentUserID)
+                .update(
+                        "username", newUsername
+                );
+    }
+
+    public void changeFirstName(String currentUserID, String newFName) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users")
+                .document(currentUserID)
+                .update(
+                        "firstName", newFName
+                );
+    }
+
+    public void changeLastName(String currentUserID, String newLName) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users")
+                .document(currentUserID)
+                .update(
+                        "lastName", newLName
+                );
+    }
+
+    // TODO: Edit profile picture
+    // TODO: Firebase Storage ücretli diyor.
 }
