@@ -63,9 +63,18 @@
             android:background="@drawable/button_gradient"
             android:contentDescription="Message Channel Add"
             android:src="@drawable/channel_add_foreground" />
-
-
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragment_container"
+        android:name="msku.ceng.madlab.roxid.voice.VoiceChannelFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
         android:layout_width="wrap_content"
