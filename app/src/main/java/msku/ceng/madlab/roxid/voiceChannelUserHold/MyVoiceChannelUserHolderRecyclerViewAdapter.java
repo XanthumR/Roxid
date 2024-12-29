@@ -54,6 +54,7 @@ public class MyVoiceChannelUserHolderRecyclerViewAdapter extends RecyclerView.Ad
         public final ShapeableImageView profileImage;
         public final TextView mContentView;
         public final View mView;
+
         public Users userItem;
 
         public ViewHolder(View view) {
@@ -61,6 +62,7 @@ public class MyVoiceChannelUserHolderRecyclerViewAdapter extends RecyclerView.Ad
             mView = view;
             mContentView = view.findViewById(R.id.username);
             profileImage = view.findViewById(R.id.user_profile_image);
+
         }
 
         @Override

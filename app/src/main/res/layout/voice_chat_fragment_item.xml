@@ -28,8 +28,18 @@
 
     </LinearLayout>
 
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/userList"
+        android:name="msku.ceng.madlab.roxid.VoiceChannelUserHolderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".voice.VoiceChannelFragment"
+        tools:listitem="@layout/fragment_voice_channel_user_holder_item" />
 
 
 

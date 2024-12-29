@@ -67,7 +67,7 @@ public class VoiceChannelFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyVoiceChannelRecyclerViewAdapter(VoiceChannels));
+            recyclerView.setAdapter(new MyVoiceChannelRecyclerViewAdapter(VoiceChannels,context));
         }
         return view;
     }
