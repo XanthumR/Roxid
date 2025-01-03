@@ -12,6 +12,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import msku.ceng.madlab.roxid.clubs.ClubsMain;
+import msku.ceng.madlab.roxid.friendRequests.FriendRequests;
 import msku.ceng.madlab.roxid.voice.VoiceChat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         buttonFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InTheClubActivity.class);
+                Intent intent = new Intent(MainActivity.this, FriendRequests.class);
                 startActivity(intent);
             }
         });

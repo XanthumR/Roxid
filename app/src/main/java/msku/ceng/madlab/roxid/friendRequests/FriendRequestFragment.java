@@ -1,7 +1,6 @@
-package msku.ceng.madlab.roxid.friends;
+package msku.ceng.madlab.roxid.friendRequests;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,54 +12,50 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import msku.ceng.madlab.roxid.MainActivity;
 import msku.ceng.madlab.roxid.R;
 import msku.ceng.madlab.roxid.SessionManager;
-import msku.ceng.madlab.roxid.clubs.ClubsMain;
-
+import msku.ceng.madlab.roxid.friends.Friend;
 
 /**
  * A fragment representing a list of Items.
  */
-public class FriendFragment extends Fragment {
+public class FriendRequestFragment extends Fragment {
 
-    List<Friend> friends = new ArrayList<>();
-
-    private static final String ARG_COLUMN_COUNT = "column-count";
-
-    private int mColumnCount = 1;
+    private List<Friend> friendRequestList = new ArrayList<>();
 
     SessionManager sessionManager;
 
     RecyclerView recyclerView;
 
-    MyFriendRecyclerViewAdapter myFriendRecyclerViewAdapter = new MyFriendRecyclerViewAdapter(friends);
+    MyFriendRequestRecyclerViewAdapter myFriendRequestRecyclerViewAdapter = new MyFriendRequestRecyclerViewAdapter(friendRequestList);
 
+
+    // TODO: Customize parameter argument names
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    // TODO: Customize parameters
+    private int mColumnCount = 1;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public FriendFragment() {
+    public FriendRequestFragment() {
     }
 
+    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static FriendFragment newInstance(int columnCount) {
-        FriendFragment fragment = new FriendFragment();
+    public static FriendRequestFragment newInstance(int columnCount) {
+        FriendRequestFragment fragment = new FriendRequestFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -72,37 +67,39 @@ public class FriendFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         sessionManager = new SessionManager(this.getContext());
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
                 .document(sessionManager.getKeyUserId())
-                .collection("Friends")
+                .collection("Friend Requests")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
 
-                            for (QueryDocumentSnapshot friend: task.getResult()) {
-                                friends.add(new Friend("picture", friend.getData().values().toArray()[0].toString()));
+                            for (QueryDocumentSnapshot friendRequest: task.getResult()) {
+                                friendRequestList.add(new Friend("picture", friendRequest.getData().values().toArray()[0].toString()));
                             }
-                            myFriendRecyclerViewAdapter.notifyDataSetChanged();
+                            myFriendRequestRecyclerViewAdapter.notifyDataSetChanged();
                         }
 
 
                     }
                 });
 
+
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_friend_request_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -113,7 +110,7 @@ public class FriendFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(myFriendRecyclerViewAdapter);
+            recyclerView.setAdapter(myFriendRequestRecyclerViewAdapter);
         }
         return view;
     }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/friend_request_profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:shapeAppearanceOverlay="@style/CircleImageViewStyle"
+        />
+
+    <TextView
+        android:id="@+id/friend_request_username"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="asdasdasda"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/white"
+        android:maxLength="12"
+        />
+
+    <Button
+        android:id="@+id/AcceptButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_gradient"
+        android:text="Accept"
+        android:textSize="15sp"
+
+        />
+    <Button
+        android:id="@+id/DeclineButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_gradient"
+        android:text="Declıne"
+        android:textSize="15sp"
+
+        />
+
+
+</LinearLayout>
