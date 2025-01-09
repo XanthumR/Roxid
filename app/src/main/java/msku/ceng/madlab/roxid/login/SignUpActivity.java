@@ -113,7 +113,7 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    /*TODO: ÜStteki çalışmıyor ama önceden çalışıyordu. 
+    /*TODO: ÜStteki çalışmıyor ama önceden çalışıyordu.
     private void checkAlreadyRegister(String email, View view) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
