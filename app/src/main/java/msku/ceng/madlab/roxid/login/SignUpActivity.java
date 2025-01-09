@@ -1,4 +1,6 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.login;
+
+import static msku.ceng.madlab.roxid.login.Hashing.hashPassword;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 import java.util.Random;
 
+import msku.ceng.madlab.roxid.R;
+import msku.ceng.madlab.roxid.SessionManager;
 import msku.ceng.madlab.roxid.mail.MailSender;
 import msku.ceng.madlab.roxid.mail.ConfirmationCode;
 
@@ -47,11 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (passwordEditText.getText().toString().equals(passwordAgainEditText.getText().toString())){
-
                     checkAlreadyRegister(emailEditText.getText().toString(),view);
-
-
-
                 }
                 else {
                     Toast.makeText(view.getContext(),"Passwords don't match",Toast.LENGTH_SHORT).show();
@@ -91,7 +91,10 @@ public class SignUpActivity extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             bundle.putString("username",usernameEditText.getText().toString());
                             bundle.putString("email",emailEditText.getText().toString());
-                            bundle.putString("password",passwordEditText.getText().toString());
+
+                            String newPassword = hashPassword(passwordEditText.getText().toString());
+                            bundle.putString("password",newPassword);
+                            System.out.println(newPassword);
                             bundle.putString("Verification Code", String.valueOf(code));
 
                             String username = task.getResult().getDocuments().get(0).getString("username");

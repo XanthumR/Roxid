@@ -1,10 +1,11 @@
 package msku.ceng.madlab.roxid;
 
-import android.app.Activity;
+import static msku.ceng.madlab.roxid.database.UserFunctions.changeFirstName;
+import static msku.ceng.madlab.roxid.database.UserFunctions.changeLastName;
+import static msku.ceng.madlab.roxid.database.UserFunctions.changeUsername;
+
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,22 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import msku.ceng.madlab.roxid.clubs.ClubsMain;
+import msku.ceng.madlab.roxid.login.MainActivity;
 
 public class UserSettings extends AppCompatActivity {
 
@@ -136,42 +129,4 @@ public class UserSettings extends AppCompatActivity {
         });
     }
 
-
-
-
-    //! .set() Overwrite diğer verilere yapar ona SetOptions.merge() yapmak gerekir
-    //! ama .update() overwrite yapmaz
-
-    public void changeUsername(String currentUserID, String newUsername) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("users")
-                .document(currentUserID)
-                .update(
-                        "username", newUsername
-                );
-    }
-
-    public void changeFirstName(String currentUserID, String newFName) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("users")
-                .document(currentUserID)
-                .update(
-                        "firstName", newFName
-                );
-    }
-
-    public void changeLastName(String currentUserID, String newLName) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("users")
-                .document(currentUserID)
-                .update(
-                        "lastName", newLName
-                );
-    }
-
-    // TODO: Edit profile picture
-    // TODO: Firebase Storage ücretli diyor.
 }

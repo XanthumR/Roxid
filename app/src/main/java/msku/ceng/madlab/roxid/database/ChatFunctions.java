@@ -1,3 +1,4 @@
+/*
 package msku.ceng.madlab.roxid.database;
 
 public class ChatFunctions {
@@ -5,3 +6,4 @@ public class ChatFunctions {
     //TODO: Delete a chat
     //TODO: Rename a chat
 }
+*/
