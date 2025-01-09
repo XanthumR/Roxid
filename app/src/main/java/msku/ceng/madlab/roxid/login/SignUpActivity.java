@@ -113,4 +113,49 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
+    /*TODO: ÜStteki çalışmıyor ama önceden çalışıyordu. 
+    private void checkAlreadyRegister(String email, View view) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        System.out.println("Query executed successfully.");
+                        System.out.println("Query result: " + task.getResult().getDocuments());
+
+                        if (!task.getResult().getDocuments().isEmpty()) {
+                            // Kullanıcı zaten kayıtlı
+                            Toast.makeText(view.getContext(), "User with this email exists", Toast.LENGTH_LONG).show();
+                        } else {
+                            // Kullanıcı kayıtlı değil, devam et
+                            Random random = new Random();
+                            int code = 100000 + random.nextInt(900000);
+
+                            MailSender mailSender = new MailSender();
+                            mailSender.sendMail(email, "Roxid Verification",
+                                    "Here is your confirmation code " + code);
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("username", usernameEditText.getText().toString());
+                            bundle.putString("email", email);
+                            bundle.putString("password", hashPassword(passwordEditText.getText().toString()));
+                            bundle.putString("Verification Code", String.valueOf(code));
+
+                            Intent intent = new Intent(SignUpActivity.this, ConfirmationCode.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    } else {
+                        // Sorgu başarısız oldu
+                        System.out.println("Error checking user: " + Objects.requireNonNull(task.getException()).getMessage());
+                        Toast.makeText(view.getContext(), "Error checking user", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+     */
+
+
 }
