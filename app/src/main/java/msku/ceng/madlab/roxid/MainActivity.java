@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         buttonFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FriendList.class);
+                Intent intent = new Intent(MainActivity.this, InTheClubActivity.class);
                 startActivity(intent);
             }
         });

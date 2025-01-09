@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import msku.ceng.madlab.roxid.R;
+import msku.ceng.madlab.roxid.database.Users;
 
 
 public class VoiceChannelFragment extends Fragment {
 
     List<VoiceChannel> VoiceChannels = new ArrayList<>();
+    List<Users> joinedUsers = new ArrayList<>();
 
 
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -45,12 +47,14 @@ public class VoiceChannelFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        VoiceChannels.add(new VoiceChannel("voiceChannel1"));
-        VoiceChannels.add(new VoiceChannel("voiceChannel2"));
-        VoiceChannels.add(new VoiceChannel("voiceChannel3"));
-        VoiceChannels.add(new VoiceChannel("voiceChannel4"));
-        VoiceChannels.add(new VoiceChannel("voiceChannel5"));
-        VoiceChannels.add(new VoiceChannel("voiceChannel6"));
+        joinedUsers.add(new Users("osman","pictue"));
+
+        VoiceChannels.add(new VoiceChannel("voiceChannel1",joinedUsers));
+        VoiceChannels.add(new VoiceChannel("voiceChannel2",joinedUsers));
+        VoiceChannels.add(new VoiceChannel("voiceChannel3",joinedUsers));
+        VoiceChannels.add(new VoiceChannel("voiceChannel4",joinedUsers));
+        VoiceChannels.add(new VoiceChannel("voiceChannel5",joinedUsers));
+        VoiceChannels.add(new VoiceChannel("voiceChannel6",joinedUsers));
     }
 
     @Override

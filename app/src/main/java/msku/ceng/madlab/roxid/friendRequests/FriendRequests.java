@@ -26,7 +26,8 @@ public class FriendRequests extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent = new Intent(FriendRequests.this,FriendList.class);
+                startActivity(intent);
                 TransitionDrawable transition = (TransitionDrawable) view.getBackground();
                 transition.startTransition(100);
                 transition.reverseTransition(750);
@@ -34,5 +35,12 @@ public class FriendRequests extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(FriendRequests.this,FriendList.class);
+        startActivity(intent);
     }
 }

@@ -51,62 +51,64 @@ public class FriendList extends AppCompatActivity {
             public void onClick(View view) {
                 SessionManager sessionManager = new SessionManager(view.getContext());
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+                if (!sessionManager.getUsername().equals(friendUsername.getText().toString())){
+                    // Check if the user exist
+                    db.collection("users")
+                            .whereEqualTo(usernameField, friendUsername.getText().toString())
+                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                        requestId = task.getResult().getDocuments().get(0).getId();
+                                        // Check if the user is already a friend
+                                        db.collection("users")
+                                                .document(sessionManager.getKeyUserId())
+                                                .collection("Friends")
+                                                .whereEqualTo(usernameField, friendUsername.getText().toString())
+                                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                                            Toast.makeText(view.getContext(),
+                                                                    "You are already friends with " + task.getResult().getDocuments().get(0).get(usernameField).toString()
+                                                                    , Toast.LENGTH_SHORT).show();
+                                                        } else if (task.isSuccessful() && task.getResult().isEmpty()) {
 
-                // Check if the user exist
-                db.collection("users")
-                        .whereEqualTo(usernameField,friendUsername.getText().toString())
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()&& !task.getResult().isEmpty()){
-                                    requestId = task.getResult().getDocuments().get(0).getId();
-                                    // Check if the user is already a friend
-                                    db.collection("users")
-                                            .document(sessionManager.getKeyUserId())
-                                            .collection("Friends")
-                                            .whereEqualTo(usernameField,friendUsername.getText().toString())
-                                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                                                        Toast.makeText(view.getContext(),
-                                                                "You are already friends with " + task.getResult().getDocuments().get(0).get(usernameField).toString()
-                                                                , Toast.LENGTH_SHORT).show();
-                                                    } else if (task.isSuccessful() && task.getResult().isEmpty()) {
+                                                            db.collection("users").document(requestId).collection("Friend Requests").whereEqualTo(usernameField, sessionManager.getUsername())
+                                                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                                                                Toast.makeText(view.getContext(), "You already sent friend request to " + friendUsername.getText().toString()
+                                                                                        , Toast.LENGTH_SHORT).show();
+                                                                            } else {
+                                                                                db.collection("users").document(requestId).collection("Friend Requests")
+                                                                                        .add(new Friend("profileimage", sessionManager.getUsername()))
+                                                                                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                                                            @Override
+                                                                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                                                                Toast.makeText(view.getContext(), "Friend request has been sent to " + friendUsername.getText().toString(), Toast.LENGTH_SHORT).show();
+                                                                                            }
+                                                                                        });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                        }
 
-                                                        db.collection("users").document(requestId).collection("Friend Requests").whereEqualTo(usernameField,sessionManager.getUsername())
-                                                                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                        if (task.isSuccessful() && !task.getResult().isEmpty()){
-                                                                            Toast.makeText(view.getContext(), "You already sent friend request to " + friendUsername.getText().toString()
-                                                                                    , Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                        else {
-                                                                            db.collection("users").document(requestId).collection("Friend Requests")
-                                                                                    .add(new Friend("profileimage",sessionManager.getUsername()))
-                                                                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                                                                        @Override
-                                                                                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                                                                                            Toast.makeText(view.getContext(),"Friend request has been sent to "+friendUsername.getText().toString(),Toast.LENGTH_SHORT).show();
-                                                                                        }
-                                                                                    });
-                                                                        }
-                                                                    }
-                                                                });
                                                     }
-
-                                                }
-                                            });
+                                                });
+                                    } else {
+                                        Toast.makeText(view.getContext(), "User does not exist", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                else {
-                                    Toast.makeText(view.getContext(),"User does not exist",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                            });
 
 
+            }
+                else{
+                    Toast.makeText(view.getContext(), "You cant send yourself a friend request", Toast.LENGTH_SHORT).show();
 
+                }
                 TransitionDrawable transition = (TransitionDrawable) view.getBackground();
                 transition.startTransition(100);
                 transition.reverseTransition(750);

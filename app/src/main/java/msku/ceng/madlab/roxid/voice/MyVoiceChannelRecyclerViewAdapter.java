@@ -23,7 +23,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
 
     private final List<VoiceChannel> mValues;
     private Context contextThis;
-    List<Users> users = new ArrayList<>();
+
 
 
     public MyVoiceChannelRecyclerViewAdapter(List<VoiceChannel> items,Context context) {
@@ -46,8 +46,8 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mVoiceChannelName.setText(mValues.get(position).getVoiceChannelName());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(contextThis));
-        holder.recyclerView.setAdapter(new MyVoiceChannelUserHolderRecyclerViewAdapter(users));
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(contextThis,LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerView.setAdapter(new MyVoiceChannelUserHolderRecyclerViewAdapter(mValues.get(position).getJoinedUsers()));
     }
 
     @Override
