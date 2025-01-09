@@ -1,5 +1,7 @@
 package msku.ceng.madlab.roxid.friends;
 
+import static msku.ceng.madlab.roxid.Constants.usernameField;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -89,7 +91,7 @@ public class FriendFragment extends Fragment {
                         if (task.isSuccessful()){
 
                             for (QueryDocumentSnapshot friend: task.getResult()) {
-                                friends.add(new Friend("picture", friend.getData().values().toArray()[0].toString()));
+                                friends.add(new Friend("picture", friend.getString(usernameField)));
                             }
                             myFriendRecyclerViewAdapter.notifyDataSetChanged();
                         }

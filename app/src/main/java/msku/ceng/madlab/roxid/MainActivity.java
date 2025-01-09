@@ -1,5 +1,7 @@
 package msku.ceng.madlab.roxid;
 
+import static msku.ceng.madlab.roxid.Constants.usernameField;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         buttonFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FriendRequests.class);
+                Intent intent = new Intent(MainActivity.this, FriendList.class);
                 startActivity(intent);
             }
         });
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         if (!task.getResult().isEmpty()){
-                            String username = task.getResult().getDocuments().get(0).getString("username");
+                            String username = task.getResult().getDocuments().get(0).getString(usernameField);
                             String userId = task.getResult().getDocuments().get(0).getId();
 
                             SessionManager sessionManager = new SessionManager(MainActivity.this);
