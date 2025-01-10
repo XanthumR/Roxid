@@ -25,6 +25,17 @@ public class Users {
         this.userPicture = userPicture;
     }
 
+<<<<<<< Updated upstream
+=======
+
+
+    public Users(String username, String userPicture) {
+        this.username = username;
+        this.userPicture = userPicture;
+    }
+>>>>>>> Stashed changes
+
+    //!TODO: get fonksiyonlarında no usage yazmasına rağmen firebase arkada kullanıyor kaldırılmamalı
 
     public String getUsername() {
         return username;
