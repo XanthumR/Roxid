@@ -72,43 +72,43 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void checkAlreadyRegister(String email, View view){
+    private void checkAlreadyRegister(String email, View view) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users")
                 .whereEqualTo("email", email)
                 .get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
-                        if (!task.getResult().isEmpty()){
-                            Toast.makeText(view.getContext(),"User with this email exist", Toast.LENGTH_LONG).show();
-                        }else {
+                    if (task.isSuccessful()) {
+                        System.out.println("Query executed successfully.");
+                        System.out.println("Query result: " + task.getResult().getDocuments());
+
+                        if (!task.getResult().getDocuments().isEmpty()) {
+                            // Kullanıcı zaten kayıtlı
+                            Toast.makeText(view.getContext(), "User with this email exists", Toast.LENGTH_LONG).show();
+                        } else {
+                            // Kullanıcı kayıtlı değil, devam et
                             Random random = new Random();
                             int code = 100000 + random.nextInt(900000);
+
                             MailSender mailSender = new MailSender();
-                            mailSender.sendMail(emailEditText.getText().toString(),"Roxid Verification",
-                                    "Here is your confirmation code "+code);
+                            mailSender.sendMail(email, "Roxid Verification",
+                                    "Here is your confirmation code " + code);
+
                             Bundle bundle = new Bundle();
-                            bundle.putString("username",usernameEditText.getText().toString());
-                            bundle.putString("email",emailEditText.getText().toString());
-
-                            String newPassword = hashPassword(passwordEditText.getText().toString());
-                            bundle.putString("password",newPassword);
-                            System.out.println(newPassword);
+                            bundle.putString("username", usernameEditText.getText().toString());
+                            bundle.putString("email", email);
+                            bundle.putString("password", hashPassword(passwordEditText.getText().toString()));
                             bundle.putString("Verification Code", String.valueOf(code));
-
-                            String username = task.getResult().getDocuments().get(0).getString("username");
-                            String userId = task.getResult().getDocuments().get(0).getId();
-
-                            SessionManager sessionManager = new SessionManager(SignUpActivity.this);
-                            sessionManager.createSession(userId,username);
 
                             Intent intent = new Intent(SignUpActivity.this, ConfirmationCode.class);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
-                    }else {
+                    } else {
+                        // Sorgu başarısız oldu
                         System.out.println("Error checking user: " + Objects.requireNonNull(task.getException()).getMessage());
+                        Toast.makeText(view.getContext(), "Error checking user", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

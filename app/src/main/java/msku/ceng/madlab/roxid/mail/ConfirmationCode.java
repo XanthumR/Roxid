@@ -61,6 +61,7 @@ public class ConfirmationCode extends AppCompatActivity {
                             .add(newUser)
                             .addOnSuccessListener(documentReference -> {
                                 System.out.println("User added with ID: " + documentReference.getId());
+
                             })
                             .addOnFailureListener(e -> {
                                 System.out.println("Error adding user: " + e.getMessage());
