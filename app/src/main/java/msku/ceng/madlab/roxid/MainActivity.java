@@ -1,6 +1,6 @@
 package msku.ceng.madlab.roxid;
 
-import static msku.ceng.madlab.roxid.Constants.usernameField;
+import static msku.ceng.madlab.roxid.login.Hashing.hashPassword;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,17 +13,11 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import msku.ceng.madlab.roxid.clubs.ClubsMain;
-import msku.ceng.madlab.roxid.friendRequests.FriendRequests;
-import msku.ceng.madlab.roxid.voice.VoiceChat;
 
+import msku.ceng.madlab.roxid.clubs.ClubsMain;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
-
-import msku.ceng.madlab.roxid.clubs.ClubsMain;
-import msku.ceng.madlab.roxid.friends.FriendList;
-import msku.ceng.madlab.roxid.mail.ConfirmationCode;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 email = findViewById(R.id.emailEditText);
                 password = findViewById(R.id.passwordEditText);
+                System.out.println(password.getText().toString());
 
-                ifValidUser(email.getText().toString(), password.getText().toString(), view);
+                checkIfValidUser(email.getText().toString(), password.getText().toString(), view);
 
             }
         });
@@ -81,15 +76,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void ifValidUser(String email, String password, View view){
+    private void checkIfValidUser(String email, String password, View view){
+
+        String newPassword = hashPassword(password);
+
         db.collection("users")
                 .whereEqualTo("email",email)
-                .whereEqualTo("password", password)
+                .whereEqualTo("password", newPassword)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         if (!task.getResult().isEmpty()){
-                            String username = task.getResult().getDocuments().get(0).getString(usernameField);
+                            String username = task.getResult().getDocuments().get(0).getString("username");
                             String userId = task.getResult().getDocuments().get(0).getId();
 
                             SessionManager sessionManager = new SessionManager(MainActivity.this);
@@ -102,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }else {
                             Toast.makeText(view.getContext(),"No user exist with this mail", Toast.LENGTH_LONG).show();
+                            System.out.println(password);
                         }
                     }else {
                         Toast.makeText(view.getContext(), "Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
