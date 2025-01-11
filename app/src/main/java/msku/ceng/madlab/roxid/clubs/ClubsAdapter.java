@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import msku.ceng.madlab.roxid.Constants;
 import msku.ceng.madlab.roxid.R;
 
 public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObjects> {
@@ -64,6 +65,8 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
         holder.clubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants constants = Constants.getInstance();
+                constants.setClubName(isimler);
                 System.out.println("BUTONA TIKLANDI");
             }
         });

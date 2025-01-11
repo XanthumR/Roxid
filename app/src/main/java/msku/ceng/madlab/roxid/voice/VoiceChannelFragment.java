@@ -3,6 +3,7 @@ package msku.ceng.madlab.roxid.voice;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,11 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import msku.ceng.madlab.roxid.Constants;
 import msku.ceng.madlab.roxid.R;
+import msku.ceng.madlab.roxid.SessionManager;
 import msku.ceng.madlab.roxid.database.Users;
 
 
@@ -26,8 +36,10 @@ public class VoiceChannelFragment extends Fragment {
 
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int mColumnCount = 1;
+    private RecyclerView recyclerView;
+    private MyVoiceChannelRecyclerViewAdapter myVoiceChannelRecyclerViewAdapter = new MyVoiceChannelRecyclerViewAdapter(VoiceChannels,getContext());
 
     public VoiceChannelFragment() {
     }
@@ -47,14 +59,44 @@ public class VoiceChannelFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        joinedUsers.add(new Users("osman","pictue"));
+        Constants constants = Constants.getInstance();
 
-        VoiceChannels.add(new VoiceChannel("voiceChannel1",joinedUsers));
-        VoiceChannels.add(new VoiceChannel("voiceChannel2",joinedUsers));
-        VoiceChannels.add(new VoiceChannel("voiceChannel3",joinedUsers));
-        VoiceChannels.add(new VoiceChannel("voiceChannel4",joinedUsers));
-        VoiceChannels.add(new VoiceChannel("voiceChannel5",joinedUsers));
-        VoiceChannels.add(new VoiceChannel("voiceChannel6",joinedUsers));
+        db.collection("Clubs").whereEqualTo("Club Name","School Project")
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()){
+                                for (QueryDocumentSnapshot club: task.getResult()){
+                                    db.collection("Clubs").document(club.getId()).collection("voice channels")
+                                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                         for (QueryDocumentSnapshot voiceChannel: task.getResult()){
+                                                             db.collection("Clubs").document(club.getId()).collection("voice channels")
+                                                                     .document(voiceChannel.getId()).collection("joined users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                         @Override
+                                                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                             joinedUsers = new ArrayList<>();
+                                                                             for (QueryDocumentSnapshot user: task.getResult()){
+                                                                                 joinedUsers.add(new Users(user.getString("username"),"default pic"));
+                                                                             }
+                                                                             VoiceChannels.add(new VoiceChannel(voiceChannel.getString("voice channel name"),joinedUsers));
+                                                                             myVoiceChannelRecyclerViewAdapter.notifyItemInserted(VoiceChannels.size());
+                                                                         }
+                                                                     });
+                                                         }
+
+                                                }
+                                            });
+                                }
+                        }
+                        else{
+                            Toast.makeText(getContext(),"Club doesn't exist",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+
     }
 
     @Override
@@ -65,13 +107,13 @@ public class VoiceChannelFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyVoiceChannelRecyclerViewAdapter(VoiceChannels,context));
+            recyclerView.setAdapter(myVoiceChannelRecyclerViewAdapter);
         }
         return view;
     }
