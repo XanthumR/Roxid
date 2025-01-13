@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import msku.ceng.madlab.roxid.InTheClubActivity;
 import msku.ceng.madlab.roxid.R;
 import msku.ceng.madlab.roxid.SessionManager;
 import msku.ceng.madlab.roxid.TextShader;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         buttonFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FriendRequests.class);
+                Intent intent = new Intent(MainActivity.this, InTheClubActivity.class);
                 startActivity(intent);
             }
         });

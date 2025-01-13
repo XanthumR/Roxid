@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import msku.ceng.madlab.roxid.MainActivity;
+import msku.ceng.madlab.roxid.login.MainActivity;
 import msku.ceng.madlab.roxid.R;
 import msku.ceng.madlab.roxid.SessionManager;
 import msku.ceng.madlab.roxid.friendRequests.FriendRequests;
