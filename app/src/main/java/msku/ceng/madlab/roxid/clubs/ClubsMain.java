@@ -15,11 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import msku.ceng.madlab.roxid.MainActivity;
+import msku.ceng.madlab.roxid.login.MainActivity;
 import msku.ceng.madlab.roxid.R;
 
-import msku.ceng.madlab.roxid.MainActivity;
-import msku.ceng.madlab.roxid.R;
 import msku.ceng.madlab.roxid.SessionManager;
 import msku.ceng.madlab.roxid.TextShader;
 import msku.ceng.madlab.roxid.UserSettings;

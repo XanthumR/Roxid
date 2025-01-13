@@ -1,5 +1,7 @@
 package msku.ceng.madlab.roxid.database;
 
+import com.google.firebase.firestore.auth.User;
+
 public class Users {
     // Necessary
     private int userId;
@@ -12,6 +14,10 @@ public class Users {
     private String firstName;
     private String lastName;
 
+    public Users(){
+
+    }
+
     public Users(String email, String username, String password, String userPicture) {
         this.email = email;
         this.password = password;
@@ -19,15 +25,20 @@ public class Users {
         this.userPicture = userPicture;
     }
 
+
+
     public Users(String username, String userPicture) {
         this.username = username;
         this.userPicture = userPicture;
     }
 
+
+    //!TODO: get fonksiyonlarında no usage yazmasına rağmen firebase arkada kullanıyor kaldırılmamalı
+
     public String getUsername() {
         return username;
     }
-    /*
+
     public int getUserId() {
         return userId;
     }
@@ -78,5 +89,5 @@ public class Users {
         this.userPicture = userPicture;
     }
 
-     */
+
 }

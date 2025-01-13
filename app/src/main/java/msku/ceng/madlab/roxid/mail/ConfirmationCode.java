@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import msku.ceng.madlab.roxid.clubs.ClubsMain;
-import msku.ceng.madlab.roxid.MainActivity;
+import msku.ceng.madlab.roxid.login.MainActivity;
 import msku.ceng.madlab.roxid.R;
 import msku.ceng.madlab.roxid.database.Users;
 
@@ -61,6 +61,7 @@ public class ConfirmationCode extends AppCompatActivity {
                             .add(newUser)
                             .addOnSuccessListener(documentReference -> {
                                 System.out.println("User added with ID: " + documentReference.getId());
+
                             })
                             .addOnFailureListener(e -> {
                                 System.out.println("Error adding user: " + e.getMessage());

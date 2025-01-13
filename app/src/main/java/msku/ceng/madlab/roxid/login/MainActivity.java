@@ -1,4 +1,4 @@
-package msku.ceng.madlab.roxid;
+package msku.ceng.madlab.roxid.login;
 
 import static msku.ceng.madlab.roxid.login.Hashing.hashPassword;
 
@@ -13,8 +13,12 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-
+import msku.ceng.madlab.roxid.R;
+import msku.ceng.madlab.roxid.SessionManager;
+import msku.ceng.madlab.roxid.TextShader;
 import msku.ceng.madlab.roxid.clubs.ClubsMain;
+import msku.ceng.madlab.roxid.friendRequests.FriendRequests;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         buttonFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InTheClubActivity.class);
+                Intent intent = new Intent(MainActivity.this, FriendRequests.class);
                 startActivity(intent);
             }
         });
