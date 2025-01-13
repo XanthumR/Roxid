@@ -127,26 +127,7 @@ public class MyFriendRequestRecyclerViewAdapter extends RecyclerView.Adapter<MyF
                 @Override
                 public void onClick(View view) {
 
-                    db.collection("users").document(sessionManager.getKeyUserId())
-                            .collection("Friend Requests")
-                            .whereEqualTo(usernameField, mFriendUsername.getText().toString())
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            // Delete the document
-                                            adapter.mValues.remove(getBindingAdapterPosition());
-                                            document.getReference().delete();
-                                            adapter.notifyDataSetChanged();
 
-                                        }
-                                    } else {
-                                        Log.w("Firestore", "Error getting documents.", task.getException());
-                                    }
-                                }
-                            });
 
                 }
             });

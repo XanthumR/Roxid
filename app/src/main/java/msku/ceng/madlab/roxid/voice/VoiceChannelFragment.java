@@ -39,8 +39,8 @@ public class VoiceChannelFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int mColumnCount = 1;
     private RecyclerView recyclerView;
-    private MyVoiceChannelRecyclerViewAdapter myVoiceChannelRecyclerViewAdapter = new MyVoiceChannelRecyclerViewAdapter(VoiceChannels,getContext());
-
+    private MyVoiceChannelRecyclerViewAdapter myVoiceChannelRecyclerViewAdapter=new MyVoiceChannelRecyclerViewAdapter(VoiceChannels,getContext()) ;
+    int indx=0;
     public VoiceChannelFragment() {
     }
 
@@ -60,7 +60,7 @@ public class VoiceChannelFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
         Constants constants = Constants.getInstance();
-
+        myVoiceChannelRecyclerViewAdapter.setContextThis(getContext());
         db.collection("Clubs").whereEqualTo("Club Name","School Project")
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -71,6 +71,7 @@ public class VoiceChannelFragment extends Fragment {
                                             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    indx=0;
                                                          for (QueryDocumentSnapshot voiceChannel: task.getResult()){
                                                              db.collection("Clubs").document(club.getId()).collection("voice channels")
                                                                      .document(voiceChannel.getId()).collection("joined users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -80,8 +81,9 @@ public class VoiceChannelFragment extends Fragment {
                                                                              for (QueryDocumentSnapshot user: task.getResult()){
                                                                                  joinedUsers.add(new Users(user.getString("username"),"default pic"));
                                                                              }
-                                                                             VoiceChannels.add(new VoiceChannel(voiceChannel.getString("voice channel name"),joinedUsers));
+                                                                             VoiceChannels.add(indx,new VoiceChannel(voiceChannel.getString("voice channel name"),joinedUsers,indx));
                                                                              myVoiceChannelRecyclerViewAdapter.notifyItemInserted(VoiceChannels.size());
+                                                                             indx++;
                                                                          }
                                                                      });
                                                          }
@@ -113,6 +115,7 @@ public class VoiceChannelFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
             recyclerView.setAdapter(myVoiceChannelRecyclerViewAdapter);
         }
         return view;

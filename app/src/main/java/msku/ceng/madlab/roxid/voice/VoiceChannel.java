@@ -8,10 +8,11 @@ public class VoiceChannel {
 
     String VoiceChannelName;
     List<Users> joinedUsers;
-
-    public VoiceChannel(String voiceChannelName, List<Users> joinedUsers) {
+    public int VoiceChannelIndex;
+    public VoiceChannel(String voiceChannelName, List<Users> joinedUsers,int voiceChannelIndex) {
         VoiceChannelName = voiceChannelName;
         this.joinedUsers=joinedUsers;
+        this.VoiceChannelIndex = voiceChannelIndex;
     }
 
     public List<Users> getJoinedUsers(){
