@@ -73,15 +73,18 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                                                 System.err.println("Error listening to collection: " + error);
                                                 return;
                                             }
+
                                             for (DocumentChange dc : value.getDocumentChanges()) {
                                                 switch (dc.getType()) {
                                                     case ADDED:
                                                         System.out.println("Document added: " + dc.getDocument().getData());
-                                                        if (dc.getDocument().getString("username").equals(sessionManager.getUsername())){
-                                                            prevChannel=voiceChannels.getString("voice channel name");
-                                                            System.out.println(prevChannel);
+                                                        if (dc.getDocument().getString("username")!=null){
+                                                            if (dc.getDocument().getString("username").equals(sessionManager.getUsername())){
+                                                                prevChannel=voiceChannels.getString("voice channel name");
+                                                                System.out.println(prevChannel);
+                                                            }
+                                                            joinedUsers.add(new Users(dc.getDocument().getString("username"),"default picture"));
                                                         }
-                                                        joinedUsers.add(new Users(dc.getDocument().getString("username"),"default picture"));
                                                         break;
                                                     case MODIFIED:
                                                         System.out.println("Document modified: " + dc.getDocument().getData());
