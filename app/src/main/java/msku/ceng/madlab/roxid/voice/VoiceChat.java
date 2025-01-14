@@ -1,8 +1,11 @@
 package msku.ceng.madlab.roxid.voice;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,19 +22,25 @@ import io.agora.rtc2.RtcEngineConfig;
 import msku.ceng.madlab.roxid.R;
 
 
-public class VoiceChat extends AppCompatActivity {
+public class VoiceChat {
 
     // Fill in your App ID, which can be generated in the Agora console
     private String myAppId = "29f451bf225e413380ebfb0e767a2fad";
     // Fill in the channel name
-    private String channelName = "channel";
+    private String channelName;
     // Fill in the temporary Token generated in the Agora console
-    private String token = "007eJxSYEg4eYpP/5JxuoOwZUfiWpmzh+dMLGM+qcfsuSZ324Ot794pMBhZppmYGialGRmZppoYGhtbGKQmpSUZpJqbmScapSWmzFSMT28IZGR4YmDMwsjAyMDCwMgA4jOBSWYwyQIm2RmSMxLz8lJzGBgAAQAA///AXSKT";
+    private String token;
 
     private RtcEngine mRtcEngine;
 
     private static final int PERMISSION_REQ_ID = 22;
 
+
+    private TokenBuilder tokenBuilder = new TokenBuilder();
+
+    private Context context;
+
+    private Activity activity;
     // Get the permissions required for experiencing real-time audio interaction
     private String[] getRequiredPermissions(){
         // Determine the permissions required when targetSDKVersion is 31 or above
@@ -48,9 +57,17 @@ public class VoiceChat extends AppCompatActivity {
         }
     }
 
+    public VoiceChat(Context context, String channelName,String username,Activity activity) {
+        this.context = context;
+        this.channelName = channelName;
+        this.token = tokenBuilder.createToken(channelName,username);
+        System.out.println(channelName+" "+this.token);
+        this.activity=activity;
+    }
+
     private boolean checkPermissions() {
         for (String permission : getRequiredPermissions()) {
-            int permissionCheck = ContextCompat.checkSelfPermission(VoiceChat.this, permission);
+            int permissionCheck = ContextCompat.checkSelfPermission(context, permission);
             if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
@@ -62,33 +79,38 @@ public class VoiceChat extends AppCompatActivity {
         @Override
         public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
             super.onJoinChannelSuccess(channel, uid, elapsed);
-            runOnUiThread(() -> {
-                Toast.makeText(VoiceChat.this, "Join channel success", Toast.LENGTH_SHORT).show();
+            System.out.println("joinsuccess");
+            activity.runOnUiThread(() -> {
+                Toast.makeText(context, "Join channel success", Toast.LENGTH_SHORT).show();
             });
         }
+
 
         @Override
         public void onUserJoined(int uid, int elapsed) {
             super.onUserJoined(uid, elapsed);
-            runOnUiThread(() -> {
-                Toast.makeText(VoiceChat.this, "User joined: " + uid, Toast.LENGTH_SHORT).show();
+            activity.runOnUiThread(() -> {
+                Toast.makeText(context, "User joined: " + uid, Toast.LENGTH_SHORT).show();
             });
         }
+
 
         @Override
         public void onUserOffline(int uid, int reason) {
             super.onUserOffline(uid, reason);
-            runOnUiThread(() -> {
-                Toast.makeText(VoiceChat.this, "User offline: " + uid, Toast.LENGTH_SHORT).show();
+            activity.runOnUiThread(() -> {
+                Toast.makeText(context, "User offline: " + uid, Toast.LENGTH_SHORT).show();
             });
         }
     };
+
+
 
         private void initializeAndJoinChannel() {
             try {
                 // Create an RtcEngineConfig object and configure it
                 RtcEngineConfig config = new RtcEngineConfig();
-                config.mContext = getBaseContext();
+                config.mContext = context;
                 config.mAppId = myAppId;
                 config.mEventHandler = mRtcEventHandler;
                 // Create and initialize the RtcEngine
@@ -114,38 +136,26 @@ public class VoiceChat extends AppCompatActivity {
             mRtcEngine.joinChannel(token, channelName, 0, options);
         }
 
+public void join(){
 
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_voice_chat);
-            // If already authorized, initialize the RtcEngine and join the channel
-            if (checkPermissions()) {
-                initializeAndJoinChannel();
-            } else {
-                ActivityCompat.requestPermissions(this, getRequiredPermissions(), PERMISSION_REQ_ID);
-            }
-        }
-
-        // System permission request callback
-        @Override
-        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (checkPermissions()) {
-                initializeAndJoinChannel();
-            }
-        }
-
-        @Override
-        protected void onDestroy() {
-            super.onDestroy();
-            if (mRtcEngine != null) {
-                // Leave the channel
+    if (checkPermissions()) {
+        System.out.println("trying to join");
+        initializeAndJoinChannel();
+    }
+}
+public void leave(){
+            if (mRtcEngine!=null){
                 mRtcEngine.leaveChannel();
+            }
+}
+
+public void destroyRtcEngine(){
+            if (mRtcEngine!=null){
                 mRtcEngine = null;
                 // Destroy the engine
                 RtcEngine.destroy();
             }
-        }
+}
+
+
     }

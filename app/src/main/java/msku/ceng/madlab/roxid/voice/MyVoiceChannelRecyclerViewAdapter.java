@@ -4,6 +4,7 @@ import static msku.ceng.madlab.roxid.Constants.usernameField;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +42,6 @@ import msku.ceng.madlab.roxid.voiceChannelUserHold.MyVoiceChannelUserHolderRecyc
 public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVoiceChannelRecyclerViewAdapter.ViewHolder> {
 
     private final List<VoiceChannel> mValues;
-    List<Users> joinedUsers = new ArrayList<>();
     private Context contextThis;
     private int prev;
 
@@ -50,12 +50,14 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
     private Users user;
     SessionManager sessionManager ;
     private  String prevChannel = null;
+    private Fragment fragment;
+    private VoiceChat voiceChat;
 
 
-    public MyVoiceChannelRecyclerViewAdapter(List<VoiceChannel> items,Context context) {
+    public MyVoiceChannelRecyclerViewAdapter(List<VoiceChannel> items, Context context, Fragment fragment) {
         mValues = items;
         contextThis=context;
-
+        this.fragment=fragment;
         db.collection("Clubs").document("School Project").collection("voice channels")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -112,7 +114,6 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                 });
     }
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -123,6 +124,19 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
 
     }
 
+    public void leaveVchat(){
+        if (voiceChat!=null){
+            voiceChat.leave();
+        }
+    }
+
+    public void destroyRtcengine(){
+        if (voiceChat!=null){
+            voiceChat.destroyRtcEngine();
+        }
+    }
+
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mVoiceChannelName.setText(mValues.get(position).getVoiceChannelName());
@@ -131,10 +145,10 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
         voiceHolderAdapter = new MyVoiceChannelUserHolderRecyclerViewAdapter(mValues.get(position).getJoinedUsers());
         holder.recyclerView.setAdapter(voiceHolderAdapter);
 
+
         holder.joinVC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (!(holder.mVoiceChannelName.getText().toString()).equals(prevChannel)){
                     System.out.println(prevChannel);
                     Constants constants = Constants.getInstance();
@@ -145,7 +159,11 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                             .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
-                                    Toast.makeText(view.getContext(), "joined channel", Toast.LENGTH_SHORT).show();
+                                    leaveVchat();
+                                    destroyRtcengine();
+                                    voiceChat = new VoiceChat(contextThis,holder.mVoiceChannelName.getText().toString()
+                                            ,sessionManager.getUsername(),fragment.getActivity());
+                                    voiceChat.join();
                                 }
                             });
                     if (prevChannel!=null){
@@ -160,10 +178,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                                         if (task.isSuccessful()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 // Delete the document
-
                                                 document.getReference().delete();
-
-
                                             }
                                         } else {
                                             Log.w("Firestore", "Error getting documents.", task.getException());
@@ -203,6 +218,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
             recyclerView = view.findViewById(R.id.userList);
             joinVC = view.findViewById(R.id.channelJoinButton);
             sessionManager = new SessionManager(view.getContext());
+
 
 
         }

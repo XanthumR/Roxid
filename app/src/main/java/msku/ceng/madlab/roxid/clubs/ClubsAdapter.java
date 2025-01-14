@@ -2,6 +2,7 @@ package msku.ceng.madlab.roxid.clubs;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import msku.ceng.madlab.roxid.Constants;
+import msku.ceng.madlab.roxid.InTheClubActivity;
 import msku.ceng.madlab.roxid.R;
 
 public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObjects> {
@@ -67,6 +69,8 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
             public void onClick(View view) {
                 Constants constants = Constants.getInstance();
                 constants.setClubName(isimler);
+                Intent intent = new Intent(view.getContext(), InTheClubActivity.class);
+                view.getContext().startActivity(intent);
                 System.out.println("BUTONA TIKLANDI");
             }
         });
