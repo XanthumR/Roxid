@@ -23,6 +23,9 @@
         android:theme="@style/Theme.Roxid"
         tools:targetApi="31">
         <activity
+            android:name=".NewChannel"
+            android:exported="false" />
+        <activity
             android:name=".friendRequests.FriendRequests"
             android:exported="false" />
         <activity

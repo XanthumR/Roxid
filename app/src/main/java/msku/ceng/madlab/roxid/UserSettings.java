@@ -82,6 +82,7 @@ public class UserSettings extends AppCompatActivity {
 
                 if (!newUsername.isEmpty()) {
                     changeUsername(currentUserId, newUsername);
+                    sessionManager.updateSessionUsername(newUsername);
                 }
                 if (!newFirstName.isEmpty()) {
                     changeFirstName(currentUserId, newFirstName);

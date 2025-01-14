@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBlueish"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".NewChannel">
+
+    <TextView
+        android:id="@+id/channelLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create New Channel"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/newChannelLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/editTextNewChannel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_gradient"
+        android:hint="Type a Channel Name" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/backToClub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_gradient"
+        android:text="Back"/>
+
+    <Button
+        android:id="@+id/saveChannel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_gradient"
+        android:text="Save"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -95,6 +96,25 @@ public class ClubsMain extends AppCompatActivity {
 
         listName = new ArrayList<>();
 
+        //TODO: NOT TESTED
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        SessionManager sessionManager = new SessionManager(ClubsMain.this);
+
+        db.collection("users")
+                .document(sessionManager.getKeyUserId())
+                .collection("Clubs")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots){
+                        String clubName = document.getString("name");
+                        if (clubName != null){
+                            listName.add(clubName);
+                        }
+                    }
+                });
+
+
+
         listName.add(" Ozan");
         listName.add(" Şevval");
         listName.add(" MSKÜ");
@@ -142,9 +162,6 @@ public class ClubsMain extends AppCompatActivity {
             System.out.println("No user is logged in.");
         }
         */
-
-        //TODO: This is a Database test
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         System.out.println(listName);
 
