@@ -11,6 +11,7 @@ public class SessionManager {
     private static final String KEY_USER_ID = "userId";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_CLUB_ID="clubID";
 
     public SessionManager (Context context){
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -33,6 +34,14 @@ public class SessionManager {
 
     public String getKeyUserId() {
         return sharedPreferences.getString(KEY_USER_ID,null);
+    }
+
+    public String getKeyClubId() {
+        return sharedPreferences.getString(KEY_CLUB_ID, null);
+    }
+
+    public void createClubSession(String clubID){
+        editor.putString(KEY_CLUB_ID,clubID);
     }
 
     public void updateSessionUsername(String username){
