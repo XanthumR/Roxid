@@ -6,6 +6,7 @@ import static msku.ceng.madlab.roxid.database.ChatFunctions.addVoiceChannel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -20,14 +21,20 @@ public class InTheClubActivity extends AppCompatActivity {
 
     ImageButton addMsgChannel;
     ImageButton addVcChannel;
-
+    Button backButton;
+    Button leaveVoiceChannel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_in_the_club);
 
+        backButton = findViewById(R.id.backButton);
+
+        leaveVoiceChannel = findViewById(R.id.leaveVoiceChannel);
+
         addMsgChannel = findViewById(R.id.messageChannelAddButton);
+
         addMsgChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

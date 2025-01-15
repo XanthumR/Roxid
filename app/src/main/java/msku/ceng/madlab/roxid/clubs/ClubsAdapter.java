@@ -68,10 +68,9 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ClubsViewObj
             @Override
             public void onClick(View view) {
                 Constants constants = Constants.getInstance();
-                constants.setClubName("School Project");
+                constants.setClubName(isimler);
                 Intent intent = new Intent(view.getContext(), InTheClubActivity.class);
                 view.getContext().startActivity(intent);
-                System.out.println("BUTONA TIKLANDI");
             }
         });
     }

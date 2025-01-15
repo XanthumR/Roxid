@@ -44,7 +44,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
     private final List<VoiceChannel> mValues;
     private Context contextThis;
     private int prev;
-
+    private Constants constants = Constants.getInstance();
     private MyVoiceChannelUserHolderRecyclerViewAdapter voiceHolderAdapter ;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Users user;
@@ -58,13 +58,14 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
         mValues = items;
         contextThis=context;
         this.fragment=fragment;
-        db.collection("Clubs").document("School Project").collection("voice channels")
+        // attaches a event listener to every voice channel
+        db.collection("Clubs").document(constants.getClubName()).collection("voice channels")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (QueryDocumentSnapshot voiceChannels: task.getResult()){
                             List<Users> joinedUsers = new ArrayList<>();
-                            db.collection("Clubs").document("School Project").collection("voice channels")
+                            db.collection("Clubs").document(constants.getClubName()).collection("voice channels")
                                     .document(voiceChannels.getString("voice channel name")).collection("subscribed")
                                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                         @Override
@@ -127,18 +128,43 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
 
     }
 
-    public void leaveVchat(){
+    private void leaveVchat(){
         if (voiceChat!=null){
             voiceChat.leave();
         }
     }
 
-    public void destroyRtcengine(){
+    private void destroyRtcengine(){
         if (voiceChat!=null){
             voiceChat.destroyRtcEngine();
         }
     }
 
+    public void destroyAndExit(){
+        // triggered when the fragment is destroyed
+        if (prevChannel!=null){
+            leaveVchat();
+            destroyRtcengine();
+            db.collection("Clubs").document(constants.getClubName())
+                    .collection("voice channels")
+                    .document(prevChannel).collection("subscribed")
+                    .whereEqualTo("username",sessionManager.getUsername())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // Delete the document
+                                    document.getReference().delete();
+                                }
+                            } else {
+                                Log.w("Firestore", "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        }
+    }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -152,11 +178,11 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
         holder.joinVC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // add the user to the voice channel's subscriber collection
                 if (!(holder.mVoiceChannelName.getText().toString()).equals(prevChannel)){
                     System.out.println(prevChannel);
-                    Constants constants = Constants.getInstance();
                     SessionManager sessionManager = new SessionManager(view.getContext());
-                    db.collection("Clubs").document("School Project").collection("voice channels")
+                    db.collection("Clubs").document(constants.getClubName()).collection("voice channels")
                             .document(holder.mVoiceChannelName.getText().toString()).collection("subscribed")
                             .add(new Users(holder.sessionManager.getUsername(),"default pic"))
                             .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -169,8 +195,10 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                                     voiceChat.join();
                                 }
                             });
+
+                    // remove user from the previous channel in database if there is a previous channel
                     if (prevChannel!=null){
-                        db.collection("Clubs").document("School Project")
+                        db.collection("Clubs").document(constants.getClubName())
                                 .collection("voice channels")
                                 .document(prevChannel).collection("subscribed")
                                 .whereEqualTo("username",sessionManager.getUsername())
@@ -197,6 +225,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -230,5 +259,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
         public String toString() {
             return super.toString() + " '" + mVoiceChannelName.getText() + "'";
         }
+
+
     }
 }

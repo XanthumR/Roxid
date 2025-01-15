@@ -38,7 +38,7 @@ public class VoiceChannelFragment extends Fragment {
     List<VoiceChannel> VoiceChannels = new ArrayList<>();
     List<Users> joinedUsers = new ArrayList<>();
 
-
+    private Constants constants = Constants.getInstance();
     private static final String ARG_COLUMN_COUNT = "column-count";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int mColumnCount = 1;
@@ -57,15 +57,22 @@ public class VoiceChannelFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        myVoiceChannelRecyclerViewAdapter.destroyAndExit();
+        System.out.println("destroyed");
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        Constants constants = Constants.getInstance();
+
         myVoiceChannelRecyclerViewAdapter.setContextThis(getContext());
-        db.collection("Clubs").whereEqualTo("Club Name","School Project")
+        db.collection("Clubs").whereEqualTo("Club Name",constants.getClubName())
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -75,10 +82,13 @@ public class VoiceChannelFragment extends Fragment {
                                             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.getResult().isEmpty()){
+                                                        return;
+                                                    }
                                                     indx=0;
                                                          for (QueryDocumentSnapshot voiceChannel: task.getResult()){
                                                              db.collection("Clubs").document(club.getId()).collection("voice channels")
-                                                                     .document(voiceChannel.getId()).collection("joined users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                     .document(voiceChannel.getId()).collection("subscribed").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                          @Override
                                                                          public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                                              joinedUsers = new ArrayList<>();
@@ -86,6 +96,7 @@ public class VoiceChannelFragment extends Fragment {
                                                                                  joinedUsers.add(new Users(user.getString("username"),"default picture"));
                                                                              }
                                                                              VoiceChannels.add(indx,new VoiceChannel(voiceChannel.getString("voice channel name"),joinedUsers,indx));
+                                                                             System.out.println(VoiceChannels.toString());
                                                                              myVoiceChannelRecyclerViewAdapter.notifyDataSetChanged();
                                                                              indx++;
                                                                          }

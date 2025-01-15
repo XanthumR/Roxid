@@ -21,6 +21,7 @@ import msku.ceng.madlab.roxid.clubs.ClubsMain;
 import msku.ceng.madlab.roxid.friendRequests.FriendRequests;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 
 import java.util.Objects;
 
@@ -81,36 +82,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void checkIfValidUser(String email, String password, View view){
-
+    private void checkIfValidUser(String email, String password, View view) {
         String newPassword = hashPassword(password);
 
+        if (newPassword == null) {
+            Toast.makeText(MainActivity.this, "Error hashing password", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         db.collection("users")
-                .whereEqualTo("email",email)
+                .whereEqualTo("email", email)
                 .whereEqualTo("password", newPassword)
-                .get()
+                .get(Source.SERVER) // Yalnızca sunucudan veri al
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
-                        if (!task.getResult().isEmpty()){
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null && !task.getResult().isEmpty()) {
                             String username = task.getResult().getDocuments().get(0).getString("username");
                             String userId = task.getResult().getDocuments().get(0).getId();
 
                             SessionManager sessionManager = new SessionManager(MainActivity.this);
-                            sessionManager.createSession(userId,username);
-
-                            //System.out.println("Bunlar ID ve Username " + userId + " " + username);
-
+                            sessionManager.createSession(userId, username);
 
                             Intent intent = new Intent(MainActivity.this, ClubsMain.class);
                             startActivity(intent);
-                        }else {
-                            Toast.makeText(view.getContext(),"No user exist with this mail", Toast.LENGTH_LONG).show();
-                            System.out.println(password);
+                            finish();
+                        } else {
+                            Toast.makeText(MainActivity.this, "No user exists with this email", Toast.LENGTH_LONG).show();
                         }
-                    }else {
-                        Toast.makeText(view.getContext(), "Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        String errorMessage = "Failed to connect to the server. Please check your internet connection.";
+                        if (task.getException() != null) {
+                            errorMessage += " Error: " + task.getException().getMessage();
+                        }
+                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
     }
+
+
 
 }
