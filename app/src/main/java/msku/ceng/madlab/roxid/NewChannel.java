@@ -66,7 +66,9 @@ public class NewChannel extends AppCompatActivity {
                 String channelName = editTextChannel.getText().toString();
                 SessionManager sessionManager = new SessionManager(NewChannel.this);
                 String clubID = sessionManager.getKeyClubId();
-                addVoiceChannel(clubID, channelName);
+                Constants constants = Constants.getInstance();
+                String clubName =constants.getClubName();
+                addVoiceChannel(clubName, channelName);
             });
 
         }

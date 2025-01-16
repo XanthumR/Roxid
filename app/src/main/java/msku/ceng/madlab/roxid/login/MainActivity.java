@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     TextView logoText;
     TextView signUpText;
     Button loginButton;
-    Button buttonFriend;
     EditText email;
     EditText password;
 
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         logoText = findViewById(R.id.gradientText);
         signUpText = findViewById(R.id.signupTextView);
         loginButton = findViewById(R.id.loginButton);
-        buttonFriend=findViewById(R.id.friendButton);
         TextShader textShader = new TextShader();
         textShader.shaderStart(logoText,"#f105dd","#fb764f");
         textShader.shaderStart(signUpText,"#f206dc","#fc7b4e");
@@ -68,13 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
                 checkIfValidUser(email.getText().toString(), password.getText().toString(), view);
 
-            }
-        });
-        buttonFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InTheClubActivity.class);
-                startActivity(intent);
             }
         });
 

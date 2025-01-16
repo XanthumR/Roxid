@@ -104,7 +104,6 @@
         android:background="@drawable/button_gradient"
         android:text="LEAVE VOICE CHANNEL"
         android:textSize="15sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

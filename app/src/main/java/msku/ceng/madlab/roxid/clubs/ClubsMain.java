@@ -117,11 +117,9 @@ public class ClubsMain extends AppCompatActivity {
                             for (QueryDocumentSnapshot club:task.getResult()){
                                 String clubName = club.getString("Club Name");
                                 if (clubName != null){
-                                    System.out.println(clubName);
                                     listName.add(clubName);
                                 }
                             }
-                            System.out.println(listName.toString());
 
                             adapter = new ClubsAdapter(ClubsMain.this,listName);
 

@@ -17,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import msku.ceng.madlab.roxid.clubs.ClubsMain;
+
 public class InTheClubActivity extends AppCompatActivity {
 
     ImageButton addMsgChannel;
@@ -34,6 +36,14 @@ public class InTheClubActivity extends AppCompatActivity {
         leaveVoiceChannel = findViewById(R.id.leaveVoiceChannel);
 
         addMsgChannel = findViewById(R.id.messageChannelAddButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InTheClubActivity.this, ClubsMain.class);
+                startActivity(intent);
+            }
+        });
 
         addMsgChannel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +75,15 @@ public class InTheClubActivity extends AppCompatActivity {
                 //TODO: ÇIKARKEN CLUB ID SESSION BİLGİLERİ TEMİZLENECEK
             }
         });
+
+        leaveVoiceChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
 
 
 

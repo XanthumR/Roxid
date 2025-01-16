@@ -56,11 +56,12 @@ public class VoiceChannelFragment extends Fragment {
         return fragment;
     }
 
+    
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         myVoiceChannelRecyclerViewAdapter.destroyAndExit();
-        System.out.println("destroyed");
     }
 
     @Override
@@ -72,6 +73,9 @@ public class VoiceChannelFragment extends Fragment {
         }
 
         myVoiceChannelRecyclerViewAdapter.setContextThis(getContext());
+
+        // gets the voice channels from database and add them to the VoiceChannels List then notify the
+        // recycling view adapter to show it on screen
         db.collection("Clubs").whereEqualTo("Club Name",constants.getClubName())
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -96,7 +100,6 @@ public class VoiceChannelFragment extends Fragment {
                                                                                  joinedUsers.add(new Users(user.getString("username"),"default picture"));
                                                                              }
                                                                              VoiceChannels.add(indx,new VoiceChannel(voiceChannel.getString("voice channel name"),joinedUsers,indx));
-                                                                             System.out.println(VoiceChannels.toString());
                                                                              myVoiceChannelRecyclerViewAdapter.notifyDataSetChanged();
                                                                              indx++;
                                                                          }

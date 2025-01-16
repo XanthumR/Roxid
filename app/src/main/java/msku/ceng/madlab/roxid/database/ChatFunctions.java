@@ -41,14 +41,13 @@ public class ChatFunctions {
     public static void addVoiceChannel(String clubID, String channelName){
         // Instance data
         Map<String, Object> newChannel = new HashMap<>();
-        newChannel.put("channelName", channelName);
+        newChannel.put("voice channel name", channelName);
         newChannel.put("createdAt", FieldValue.serverTimestamp());
-        newChannel.put("members", new ArrayList<String>());
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Clubs")
                 .document(clubID)
-                .collection("voiceChannels")
+                .collection("voice channels")
                 .add(newChannel)
                 .addOnSuccessListener(documentReference -> {
                     Log.d("Firebase", "New Voice Channel is Created: " + documentReference.getId());

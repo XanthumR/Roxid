@@ -78,20 +78,17 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                                             for (DocumentChange dc : value.getDocumentChanges()) {
                                                 switch (dc.getType()) {
                                                     case ADDED:
-                                                        System.out.println("Document added: " + dc.getDocument().getData());
                                                         if (dc.getDocument().getString("username")!=null){
+                                                            System.out.println("added");
                                                             if (dc.getDocument().getString("username").equals(sessionManager.getUsername())){
                                                                 prevChannel=voiceChannels.getString("voice channel name");
-                                                                System.out.println(prevChannel);
                                                             }
                                                             joinedUsers.add(new Users(dc.getDocument().getString("username"),"default picture"));
                                                         }
                                                         break;
                                                     case MODIFIED:
-                                                        System.out.println("Document modified: " + dc.getDocument().getData());
                                                         break;
                                                     case REMOVED:
-                                                        System.out.println("Document removed: " + dc.getDocument().getData());
                                                         Users remUser=null;
                                                         for(Users user: joinedUsers){
                                                             if (user.getUsername().equals(dc.getDocument().getString("username"))){
@@ -180,7 +177,6 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
             public void onClick(View view) {
                 // add the user to the voice channel's subscriber collection
                 if (!(holder.mVoiceChannelName.getText().toString()).equals(prevChannel)){
-                    System.out.println(prevChannel);
                     SessionManager sessionManager = new SessionManager(view.getContext());
                     db.collection("Clubs").document(constants.getClubName()).collection("voice channels")
                             .document(holder.mVoiceChannelName.getText().toString()).collection("subscribed")

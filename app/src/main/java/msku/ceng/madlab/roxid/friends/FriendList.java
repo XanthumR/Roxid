@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import msku.ceng.madlab.roxid.clubs.ClubsMain;
 import msku.ceng.madlab.roxid.login.MainActivity;
 import msku.ceng.madlab.roxid.R;
 import msku.ceng.madlab.roxid.SessionManager;
@@ -125,7 +126,7 @@ public class FriendList extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FriendList.this, MainActivity.class);
+                Intent intent = new Intent(FriendList.this, ClubsMain.class);
                 startActivity(intent);
                 TransitionDrawable transition = (TransitionDrawable) view.getBackground();
                 transition.startTransition(100);
