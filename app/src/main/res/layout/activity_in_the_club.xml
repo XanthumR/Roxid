@@ -83,9 +83,8 @@
             android:src="@drawable/channel_add_foreground" />
     </LinearLayout>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment_container"
-        android:name="msku.ceng.madlab.roxid.voice.VoiceChannelFragment"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_weight="1"

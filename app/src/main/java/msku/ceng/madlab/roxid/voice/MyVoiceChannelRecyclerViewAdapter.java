@@ -93,6 +93,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                                                         for(Users user: joinedUsers){
                                                             if (user.getUsername().equals(dc.getDocument().getString("username"))){
                                                                 remUser = user;
+
                                                             }
                                                         }
                                                         if (remUser!=null){
@@ -125,7 +126,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
 
     }
 
-    private void leaveVchat(){
+    protected void leaveVchat(){
         if (voiceChat!=null){
             voiceChat.leave();
         }
@@ -139,7 +140,6 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
 
     public void destroyAndExit(){
         // triggered when the fragment is destroyed
-        if (prevChannel!=null){
             leaveVchat();
             destroyRtcengine();
             db.collection("Clubs").document(constants.getClubName())
@@ -160,7 +160,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                             }
                         }
                     });
-        }
+
     }
 
     @Override

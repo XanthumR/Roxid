@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import msku.ceng.madlab.roxid.clubs.ClubsMain;
+import msku.ceng.madlab.roxid.voice.VoiceChannelFragment;
 
 public class InTheClubActivity extends AppCompatActivity {
 
@@ -31,11 +32,28 @@ public class InTheClubActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_in_the_club);
 
+
+
         backButton = findViewById(R.id.backButton);
 
         leaveVoiceChannel = findViewById(R.id.leaveVoiceChannel);
 
         addMsgChannel = findViewById(R.id.messageChannelAddButton);
+
+        if (savedInstanceState == null) {
+            VoiceChannelFragment myFragment = new VoiceChannelFragment();
+
+            // Add the fragment
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, myFragment) // Add the fragment to the container
+                    .commit();
+            leaveVoiceChannel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    myFragment.leaveChannel();
+                }
+            });
+        }
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +94,7 @@ public class InTheClubActivity extends AppCompatActivity {
             }
         });
 
-        leaveVoiceChannel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
 
 

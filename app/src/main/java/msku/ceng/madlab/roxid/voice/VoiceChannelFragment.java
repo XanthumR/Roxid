@@ -56,6 +56,10 @@ public class VoiceChannelFragment extends Fragment {
         return fragment;
     }
 
+    public void leaveChannel(){
+        myVoiceChannelRecyclerViewAdapter.destroyAndExit();
+    }
+
     
 
     @Override
