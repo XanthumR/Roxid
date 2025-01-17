@@ -1,13 +1,16 @@
 package msku.ceng.madlab.roxid.voice;
 
 import io.agora.media.RtcTokenBuilder2;
+import msku.ceng.madlab.roxid.apiKeys;
 
 
 public class TokenBuilder {
     // Need to set environment variable AGORA_APP_ID
-    static String appId = "29f451bf225e413380ebfb0e767a2fad";
+
+
+    static String appId = apiKeys.getAppId();
     // Need to set environment variable AGORA_APP_CERTIFICATE
-    static String appCertificate = "45003fb550bf425bac72cf374c16f8b9";
+    static String appCertificate = apiKeys.getAppCertificate();
 
     static int tokenExpirationInSeconds = 3600;
     static int privilegeExpirationInSeconds = 3600;

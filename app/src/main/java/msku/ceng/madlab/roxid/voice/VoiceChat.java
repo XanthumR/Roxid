@@ -18,6 +18,7 @@ import io.agora.rtc2.Constants;
 import io.agora.rtc2.IRtcEngineEventHandler;
 import io.agora.rtc2.RtcEngine;
 import io.agora.rtc2.RtcEngineConfig;
+import msku.ceng.madlab.roxid.apiKeys;
 
 import msku.ceng.madlab.roxid.R;
 
@@ -25,7 +26,7 @@ import msku.ceng.madlab.roxid.R;
 public class VoiceChat {
 
     // Fill in your App ID, which can be generated in the Agora console
-    private String myAppId = "29f451bf225e413380ebfb0e767a2fad";
+    private String myAppId = apiKeys.getAppId();
     // Fill in the channel name
     private String channelName;
     // Fill in the temporary Token generated in the Agora console
@@ -79,7 +80,6 @@ public class VoiceChat {
         @Override
         public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
             super.onJoinChannelSuccess(channel, uid, elapsed);
-            System.out.println("joinsuccess");
             activity.runOnUiThread(() -> {
                 Toast.makeText(context, "Join channel success", Toast.LENGTH_SHORT).show();
             });
@@ -139,13 +139,14 @@ public class VoiceChat {
 public void join(){
 
     if (checkPermissions()) {
-        System.out.println("trying to join");
+        Toast.makeText(context, "trying to join", Toast.LENGTH_SHORT).show();
         initializeAndJoinChannel();
     }
 }
 public void leave(){
             if (mRtcEngine!=null){
                 mRtcEngine.leaveChannel();
+                Toast.makeText(context, "left channel", Toast.LENGTH_SHORT).show();
             }
 }
 

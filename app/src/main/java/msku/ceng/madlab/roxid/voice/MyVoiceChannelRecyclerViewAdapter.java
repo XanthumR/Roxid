@@ -66,7 +66,7 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                         for (QueryDocumentSnapshot voiceChannels: task.getResult()){
                             List<Users> joinedUsers = new ArrayList<>();
                             db.collection("Clubs").document(constants.getClubName()).collection("voice channels")
-                                    .document(voiceChannels.getString("voice channel name")).collection("subscribed")
+                                    .document(voiceChannels.getId()).collection("subscribed")
                                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                         @Override
                                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -142,24 +142,32 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
         // triggered when the fragment is destroyed
             leaveVchat();
             destroyRtcengine();
-            db.collection("Clubs").document(constants.getClubName())
-                    .collection("voice channels")
-                    .document(prevChannel).collection("subscribed")
-                    .whereEqualTo("username",sessionManager.getUsername())
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    // Delete the document
-                                    document.getReference().delete();
-                                }
-                            } else {
-                                Log.w("Firestore", "Error getting documents.", task.getException());
-                            }
+        db.collection("Clubs").document(constants.getClubName())
+                .collection("voice channels").whereEqualTo("voice channel name",prevChannel)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot prev:task.getResult()){
+                            db.collection("Clubs").document(constants.getClubName())
+                                    .collection("voice channels").document(prev.getId()).collection("subscribed")
+                                    .whereEqualTo("username",sessionManager.getUsername())
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    // Delete the document
+                                                    document.getReference().delete();
+                                                }
+                                            } else {
+                                                Log.w("Firestore", "Error getting documents.", task.getException());
+                                            }
+                                        }
+                                    });
                         }
-                    });
+                    }
+                });
 
     }
 
@@ -178,40 +186,60 @@ public class MyVoiceChannelRecyclerViewAdapter extends RecyclerView.Adapter<MyVo
                 // add the user to the voice channel's subscriber collection
                 if (!(holder.mVoiceChannelName.getText().toString()).equals(prevChannel)){
                     SessionManager sessionManager = new SessionManager(view.getContext());
-                    db.collection("Clubs").document(constants.getClubName()).collection("voice channels")
-                            .document(holder.mVoiceChannelName.getText().toString()).collection("subscribed")
-                            .add(new Users(holder.sessionManager.getUsername(),"default pic"))
-                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    db.collection("Clubs").document(constants.getClubName()).collection("voice channels").whereEqualTo("voice channel name",holder.mVoiceChannelName.getText().toString())
+                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
-                                    leaveVchat();
-                                    destroyRtcengine();
-                                    voiceChat = new VoiceChat(contextThis,holder.mVoiceChannelName.getText().toString()
-                                            ,sessionManager.getUsername(),fragment.getActivity());
-                                    voiceChat.join();
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        for (QueryDocumentSnapshot voiceChannel: task.getResult()){
+                                            db.collection("Clubs").document(constants.getClubName()).collection("voice channels").document(voiceChannel.getId()).collection("subscribed")
+                                                    .add(new Users(holder.sessionManager.getUsername(),"default pic"))
+                                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                            leaveVchat();
+                                                            destroyRtcengine();
+                                                            voiceChat = new VoiceChat(contextThis,holder.mVoiceChannelName.getText().toString()
+                                                                    ,sessionManager.getUsername(),fragment.getActivity());
+                                                            voiceChat.join();
+                                                        }
+                                                    });
+
+                                        }
+                                    }
                                 }
                             });
+
 
                     // remove user from the previous channel in database if there is a previous channel
                     if (prevChannel!=null){
                         db.collection("Clubs").document(constants.getClubName())
-                                .collection("voice channels")
-                                .document(prevChannel).collection("subscribed")
-                                .whereEqualTo("username",sessionManager.getUsername())
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                .collection("voice channels").whereEqualTo("voice channel name",prevChannel)
+                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                // Delete the document
-                                                document.getReference().delete();
-                                            }
-                                        } else {
-                                            Log.w("Firestore", "Error getting documents.", task.getException());
+                                        for (QueryDocumentSnapshot prev:task.getResult()){
+                                            db.collection("Clubs").document(constants.getClubName())
+                                                    .collection("voice channels").document(prev.getId()).collection("subscribed")
+                                                    .whereEqualTo("username",sessionManager.getUsername())
+                                                    .get()
+                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                    // Delete the document
+                                                                    document.getReference().delete();
+                                                                }
+                                                            } else {
+                                                                Log.w("Firestore", "Error getting documents.", task.getException());
+                                                            }
+                                                        }
+                                                    });
                                         }
                                     }
                                 });
+
                     }
                     prevChannel =holder.mVoiceChannelName.getText().toString();
                 }

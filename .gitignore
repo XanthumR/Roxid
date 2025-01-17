@@ -15,3 +15,5 @@
 local.properties
 Plan
 MyNotes/app/google-services.json
+/app/src/main/java/msku/ceng/madlab/roxid/apiKeys.java
+/app/src/main/java/msku/ceng/madlab/roxid/mail/Appdata.java
