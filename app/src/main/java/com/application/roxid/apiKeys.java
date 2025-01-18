@@ -2,9 +2,9 @@ package com.application.roxid;
 
 public class apiKeys {
 
-    static String appId ="29f451bf225e413380ebfb0e767a2fad";
+    static String appId ="get your appID from agora console";
 
-    static String appCertificate = "45003fb550bf425bac72cf374c16f8b9";
+    static String appCertificate = "put your appCertificate from agora console";
 
     public apiKeys() {
     }
