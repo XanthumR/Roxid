@@ -10,11 +10,11 @@ android {
         exclude("META-INF/LICENSE.md")
 
     }
-    namespace = "msku.ceng.madlab.roxid"
+    namespace = "com.application.roxid"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "msku.ceng.madlab.roxid"
+        applicationId = "com.application.roxid"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -60,6 +60,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("io.agora.rtc:voice-sdk:4.5.0")
     implementation("io.agora.rtc:chat-sdk:1.3.0")
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("io.agora:authentication:2.1.2")
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")

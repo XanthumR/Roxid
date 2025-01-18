@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/fragment_container"
-        android:name="msku.ceng.madlab.roxid.friends.FriendFragment"
+        android:name="com.application.roxid.friends.FriendFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
